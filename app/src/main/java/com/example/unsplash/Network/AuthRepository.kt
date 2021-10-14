@@ -2,39 +2,30 @@ package com.example.unsplash.Network
 
 import android.net.Uri
 import android.util.Log
-import com.skillbox.github.data.AuthConfig
+import com.skillbox.github.data.NetworkConfig
 import net.openid.appauth.*
-import java.lang.Exception
 
 class AuthRepository {
 
 
     fun getAuthRequest(): AuthorizationRequest {
         val serviceConfiguration = AuthorizationServiceConfiguration(
-            Uri.parse(AuthConfig.AUTH_URI),
-            Uri.parse(AuthConfig.TOKEN_URI)
+            Uri.parse(NetworkConfig.AUTH_URI),
+            Uri.parse(NetworkConfig.TOKEN_URI)
         )
 
-        val redirectUri = Uri.parse(AuthConfig.CALLBACK_URL)
+        val redirectUri = Uri.parse(NetworkConfig.CALLBACK_URL)
 
         return AuthorizationRequest.Builder(
             serviceConfiguration,
-            AuthConfig.CLIENT_ID,
-            AuthConfig.RESPONSE_TYPE,
+            NetworkConfig.CLIENT_ID,
+            NetworkConfig.RESPONSE_TYPE,
             redirectUri
         )
-
-//            .setScope(AuthConfig.SCOPE_PUPLIC)
-//            .setScope(AuthConfig.write_user)
-//            .setScope(AuthConfig.read_photos)
-//            .setScope(AuthConfig.write_photos)
-//            .setScope(AuthConfig.write_likes)
-//            .setScope(AuthConfig.write_followers)
-//            .setScope(AuthConfig.read_collections)
-//            .setScope(AuthConfig.write_collections)
-            .setScope(AuthConfig.SCOPE_READ_USER)
+            .setScope(NetworkConfig.ALL_SCOPES)
             .setCodeVerifier(null)
             .build()
+
     }
 
     fun performTokenRequest(
@@ -47,7 +38,7 @@ class AuthRepository {
             when {
                 response != null -> {
                     val accessToken = response.accessToken.orEmpty()
-                    AuthConfig.token = accessToken
+                    NetworkConfig.token = accessToken
                     Log.d("UnsplashLogging", "accessToken$accessToken")
                     onComplete()
                 }
@@ -58,6 +49,6 @@ class AuthRepository {
 
 
     private fun getClientAuthentication(): ClientAuthentication {
-        return ClientSecretPost(AuthConfig.CLIENT_SECRET)
+        return ClientSecretPost(NetworkConfig.CLIENT_SECRET)
     }
 }

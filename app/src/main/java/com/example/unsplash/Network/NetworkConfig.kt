@@ -1,8 +1,6 @@
 package com.skillbox.github.data
 
-import com.example.networking.CustomInterceptorMovie
-import com.example.unsplash.Network.GithubApi
-import com.skillbox.github.data.AuthConfig.customInterceptor
+import com.example.unsplash.Network.UnsplashApi
 import com.skillbox.github.utils.CustomInterceptor
 import net.openid.appauth.ResponseTypeValues
 import okhttp3.OkHttpClient
@@ -11,9 +9,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 
-object AuthConfig {
+object NetworkConfig {
 
-    const val API_KEY = "e0f16b8"
 
     private val customInterceptor: CustomInterceptor by lazy { CustomInterceptor() }
 
@@ -28,19 +25,15 @@ object AuthConfig {
             HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY)
         ).addInterceptor(customInterceptor)
-//        .addInterceptor(
-//            CustomInterceptorMovie(API_KEY)
-//        )
         .build()
 
     private var retrofit = Retrofit.Builder()
         .baseUrl("https://api.unsplash.com/")
-        //.baseUrl("http://www.omdbapi.com")
         .addConverterFactory(MoshiConverterFactory.create())
         .client(okHttpClient)
         .build()
 
-    val githubApi: GithubApi
+    val unsplashApi: UnsplashApi
         get() = retrofit.create()
 
 
@@ -48,15 +41,7 @@ object AuthConfig {
     const val TOKEN_URI = "https://unsplash.com/oauth/token"
     const val RESPONSE_TYPE = ResponseTypeValues.CODE
 
-    const val SCOPE_PUPLIC = "public"
-    const val SCOPE_READ_USER = "read_user"
-    const val write_user = "write_user"
-    const val read_photos = "read_photos"
-    const val write_photos = "write_photos"
-    const val write_likes = "write_likes"
-    const val write_followers = "write_followers"
-    const val read_collections = "read_collections"
-    const val write_collections = "write_collections"
+    const val ALL_SCOPES = "public read_user write_user read_photos write_photos write_likes write_followers read_collections write_collections"
 
     const val CLIENT_ID = "mKFi8dQZY4xfESMojSJ8i2tYH3RdCJN_UaUDdd78FcQ"
     const val CLIENT_SECRET = "I4FQa5hQeuzz7RBr9iv5yqPOFPlLmtYZGSpwgzI8CWk"

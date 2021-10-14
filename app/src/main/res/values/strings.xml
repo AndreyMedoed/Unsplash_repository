@@ -86,4 +86,5 @@
 	<string name="subheading_ek5_string">16</string>
 	<string name="title_ek1_string">     </string>
 	<string name="auth_canceled"> Авторизация отклонена</string>
+    <string name="download_button"><u>DOWNLOAD</u></string>
 </resources>
