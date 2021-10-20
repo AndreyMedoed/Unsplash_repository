@@ -140,7 +140,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-                app:menu="@menu/bottom_navigation_menu" />
+                app:menu="@menu/profile_bottom_navigation_menu" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -151,6 +151,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:listitem="@layout/item_myphoto_list" />
+        tools:listitem="@layout/item_photo_list" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

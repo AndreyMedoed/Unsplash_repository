@@ -22,12 +22,12 @@
 
             <ImageView
                 android:id="@+id/cover_imageView_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@+id/linearLayout1"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/avatars" />
 
@@ -35,9 +35,9 @@
                 android:id="@+id/collection_Title_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginHorizontal="40dp"
-                android:textAppearance="?attr/textAppearanceHeadline5"
+                android:gravity="center"
+                android:textAppearance="@style/customLightHeadline5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -49,44 +49,44 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@+id/collection_Title_id"
-                android:textAppearance="?attr/textAppearanceBody1"
+                android:textAppearance="@style/customLightBody1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/collection_Title_id"
                 tools:text="A collection of the most impressive healthy lifestyle photos." />
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
                 android:layout_marginTop="30dp"
-                app:layout_constraintTop_toBottomOf="@+id/description_id"
+                android:gravity="end"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description_id">
 
                 <TextView
                     android:id="@+id/number_OfPhoto_textView_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textAppearance="@style/customLightSubtitle2"
                     tools:text="34" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:textAppearance="?attr/textAppearanceSubtitle2"
-                    android:text=" фотографий от @" />
+                    android:text=" фотографий от @"
+                    android:textAppearance="@style/customLightSubtitle2" />
 
                 <TextView
                     android:id="@+id/username_textView_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textAppearance="@style/customLightSubtitle2"
                     tools:text="andreymedoed" />
             </LinearLayout>
 
@@ -99,6 +99,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:listitem="@layout/item_myphoto_list" />
+        tools:listitem="@layout/item_photo_list" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -26,34 +26,43 @@ interface UnsplashApi {
     suspend fun getMyPhotoList(
         @Path("username") username: String,
         @Query("stats") stats: Boolean = true
-    ) : List<Photo>?
+    ): List<Photo>?
 
 
     @POST("/photos/{photoId}/like")
     suspend fun setLike(
         @Path("photoId") photoId: String
-    ) : Response<Unit>
+    ): Response<Unit>
 
     @DELETE("/photos/{photoId}/like")
     suspend fun deleteLike(
         @Path("photoId") photoId: String
-    ) : Response<Unit>
+    ): Response<Unit>
 
 
     @GET("/users/{username}/likes")
     suspend fun getMyLikesList(
         @Path("username") username: String
-    ) : List<Photo>?
+    ): List<Photo>?
 
     @GET("/users/{username}/collections")
     suspend fun getMyCollections(
         @Path("username") username: String
-    ) : List<Collection>?
+    ): List<Collection>?
 
 
     @GET("/collections/{collectionId}/photos")
     suspend fun getCollectionPhotos(
         @Path("collectionId") collectionId: String
-    ) : List<Photo>?
+    ): List<Photo>?
+
+    @GET("/collections")
+    suspend fun getTopCollections(): List<Collection>?
+
+    @GET("/photos")
+    suspend fun getTopPhotos(
+        @Query("page") page: String,
+        @Query("order_by") order_by: String = "popular"
+    ): List<Photo>?
 
 }

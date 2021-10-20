@@ -1,10 +1,13 @@
 package com.example.unsplash.fragmens.profile_fragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -22,10 +25,13 @@ class ProfileFragment : Fragment(R.layout.profile_layout) {
     private val binding: ProfileLayoutBinding by viewBinding()
     private val viewModel: ProfileViewModel by viewModels()
     private var adapter: PhotoAndCollectionAdapter by autoCleared()
-
-    init {
-        arguments = Bundle()
+    private val sharedPreferences by lazy {
+        requireContext().getSharedPreferences(
+            SHARED_PREFERENCE_NAME_PROFILE,
+            Context.MODE_PRIVATE
+        )
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,10 +39,6 @@ class ProfileFragment : Fragment(R.layout.profile_layout) {
         initBottomNavigationView()
         observe()
         getMyProfile()
-        if (arguments?.getInt(SELECTED_PROFILE_NAVIGATION_ID_KEY) != null) {
-            binding.profileBottomNavigationId.selectedItemId = arguments?.getInt(SELECTED_PROFILE_NAVIGATION_ID_KEY) ?: R.id.collection_list_item
-            binding.profileBottomNavigationId.performClick()
-        } else viewModel.getMyPhotos()
     }
 
     private fun getMyProfile() {
@@ -48,14 +50,29 @@ class ProfileFragment : Fragment(R.layout.profile_layout) {
         viewModel.profileLiveData.observe(viewLifecycleOwner) {
             Log.d("UnsplashLogging", "My profile is $it")
             bindProfile(it)
+            setOldNavigationItem()
         }
         viewModel.userLiveData.observe(viewLifecycleOwner) {
-            Log.d("UnsplashLogging", "My profile is $it")
+            Log.d("UnsplashLogging", "My User is $it")
             bindProfilePhoto(it)
         }
         viewModel.listLiveData.observe(viewLifecycleOwner) {
-            Log.d("UnsplashLogging", "My profile is $it")
+            Log.d("UnsplashLogging", "My List Photo is $it")
             it?.let { adapter.items = it }
+        }
+    }
+
+    private fun setOldNavigationItem() {
+        if (sharedPreferences.getInt(SELECTED_PROFILE_NAVIGATION_ID_KEY, 100) == 100) {
+            binding.profileBottomNavigationId.selectedItemId = R.id.photo_list_item
+            viewModel.getMyPhotos()
+            Log.d("bundleLogging", "selectedItemId == null")
+
+        } else {
+            binding.profileBottomNavigationId.selectedItemId =
+                sharedPreferences.getInt(SELECTED_PROFILE_NAVIGATION_ID_KEY, 0)
+            binding.profileBottomNavigationId.performClick()
+            Log.d("bundleLogging", "selectedItemId!= null")
         }
     }
 
@@ -78,37 +95,42 @@ class ProfileFragment : Fragment(R.layout.profile_layout) {
 
     }
 
-
-    private fun initBottomNavigationView() {
+    private fun initAdapter() {
         adapter = PhotoAndCollectionAdapter({ photoId -> setLike(photoId) },
-            { photoId -> deleteLike(photoId) }
-        ) { collection -> openCollection(collection) }
+            { photoId -> deleteLike(photoId) }, { collection -> openCollection(collection) }
+        )
 
         binding.recyclerViewId.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewId.adapter = adapter
+    }
+
+    private fun initBottomNavigationView() {
+
+        initAdapter()
 
         binding.profileBottomNavigationId.setOnItemSelectedListener { item ->
             if (!item.isChecked) {
                 when (item.itemId) {
                     R.id.photo_list_item -> {
                         viewModel.getMyPhotos()
+                        putStateInSharedPref(item.itemId)
                         true
                     }
                     R.id.likes_list_item -> {
                         viewModel.getMyLikesList()
+                        putStateInSharedPref(item.itemId)
                         true
                     }
                     R.id.collection_list_item -> {
                         viewModel.getMyCollectionList()
+                        putStateInSharedPref(item.itemId)
                         true
                     }
                     else -> false
                 }
             } else false
-
         }
-        binding.profileBottomNavigationId.selectedItemId = R.id.photo_list_item
     }
 
     private fun setLike(photoId: String) {
@@ -120,21 +142,26 @@ class ProfileFragment : Fragment(R.layout.profile_layout) {
     }
 
     private fun openCollection(collection: Collection) {
+        val navHostFragment =
+            activity?.supportFragmentManager?.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHostFragment.navController
         val action = ProfileFragmentDirections.actionProfileFragmentToCollectionFragment(collection)
         findNavController().navigate(action)
     }
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        arguments?.putInt(
-            SELECTED_PROFILE_NAVIGATION_ID_KEY,
-            binding.profileBottomNavigationId.selectedItemId
-        )
-        Log.d("bundleLogging", "arguments?.putInt")
+    private fun putStateInSharedPref(selectedItemId: Int) {
+        sharedPreferences.edit()
+            .putInt(
+                SELECTED_PROFILE_NAVIGATION_ID_KEY,
+                selectedItemId
+            )
+            .apply()
+        Log.d("bundleLogging", "putStateInSharedPref")
     }
+
 
     companion object {
         private const val SELECTED_PROFILE_NAVIGATION_ID_KEY = "SELECTED_PROFILE_NAVIGATION_ID"
+        private const val SHARED_PREFERENCE_NAME_PROFILE = "SHARED_PREFERENCE_NAME_PROFILE"
     }
 }

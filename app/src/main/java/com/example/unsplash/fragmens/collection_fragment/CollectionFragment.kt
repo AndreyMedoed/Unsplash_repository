@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.example.unsplash.R
 import com.example.unsplash.adapters.PhotoAndCollectionAdapter
 import com.example.unsplash.databinding.CollectionLayoutBinding
-import com.example.unsplash.fragmens.profile_fragment.ProfileViewModel
 import com.skillbox.github.utils.autoCleared
 
 class CollectionFragment : Fragment(R.layout.collection_layout) {
@@ -49,8 +48,12 @@ class CollectionFragment : Fragment(R.layout.collection_layout) {
         binding.usernameTextViewId.text = args.collection.user?.username
 
         Glide.with(this)
-            .load(args.collection.cover_photo)
+            .load(args.collection.cover_photo?.urls?.full)
+            .error(R.drawable.ic_error)
             .into(binding.coverImageViewId)
+
+        Log.d("UnsplashLoggingGlide", "My args.collection.cover_photo is ${args.collection.cover_photo}")
+
     }
 
 
@@ -71,7 +74,6 @@ class CollectionFragment : Fragment(R.layout.collection_layout) {
     private fun deleteLike(photoId: String) {
         viewModel.deleteLike(photoId)
     }
-
 
 
 }

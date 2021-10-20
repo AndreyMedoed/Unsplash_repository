@@ -15,16 +15,31 @@
         <action
             android:id="@+id/action_profileFragment_to_collectionFragment"
             app:destination="@id/collectionFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_photoDetailFragment"
+            app:destination="@id/photoDetailFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/authFragment"
         tools:layout="@layout/authorization_layout"
-        android:name="com.skillbox.github.ui.auth.AuthFragment"
+        android:name="com.example.unsplash.fragmens.authorization_fragment_.AuthFragment"
         android:label="AuthFragment" >
         <action
             android:id="@+id/action_authFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_authFragment_to_topPhotoListFragment"
+            app:destination="@id/topPhotoListFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_authFragment_to_topCollectionListFragment"
+            app:destination="@id/topCollectionListFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
@@ -35,6 +50,38 @@
         <argument
             android:name="collection"
             app:argType="com.example.unsplash.data.Collection" />
+        <action
+            android:id="@+id/action_collectionFragment_to_photoDetailFragment"
+            app:destination="@id/photoDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/topCollectionListFragment"
+        tools:layout="@layout/top_collection_list_layout"
+        android:name="com.example.unsplash.fragmens.top_collectionList_fragment.TopCollectionListFragment"
+        android:label="TopCollectionListFragment" >
+        <action
+            android:id="@+id/action_topCollectionListFragment_to_collectionFragment"
+            app:destination="@id/collectionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/topPhotoListFragment"
+        tools:layout="@layout/top_photo_list_layout"
+        android:name="com.example.unsplash.fragmens.top_photo_list_fragment.TopPhotoListFragment"
+        android:label="TopPhotoListFragment" >
+        <action
+            android:id="@+id/action_topPhotoListFragment_to_photoDetailFragment"
+            app:destination="@id/photoDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoDetailFragment"
+        tools:layout="@layout/photo_detail_layout"
+        android:name="com.example.unsplash.fragmens.photo_detail_fragment.PhotoDetailFragment"
+        android:label="PhotoDetailFragment" >
+        <argument
+            android:name="photo"
+            app:argType="com.example.unsplash.data.Photo" />
     </fragment>
 
 </navigation>

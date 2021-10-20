@@ -10,7 +10,8 @@ import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 class PhotoAndCollectionAdapter(
     private val setLike: (photoId: String) -> Unit,
     private val deleteLike: (photoId: String) -> Unit,
-    private val openCollectionPhotos: ((collection: Collection) -> Unit)? = null
+    private val openCollectionPhotos: ((collection: Collection) -> Unit)? = null,
+    private val openPhotoDetails: ((photo: Photo) -> Unit)? = null
 ): AsyncListDifferDelegationAdapter<PhotoAndCollection>(PhotoAndCollectionDiffUtilCallback()){
 
     init {

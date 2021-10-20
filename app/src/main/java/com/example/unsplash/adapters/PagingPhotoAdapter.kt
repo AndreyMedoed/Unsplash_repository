@@ -1,43 +1,49 @@
 package com.example.unsplash.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.example.unsplash.R
 import com.example.unsplash.data.Photo
-import com.example.unsplash.data.PhotoAndCollection
 import com.example.unsplash.databinding.ItemPhotoListBinding
-import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
-class PhotoDelegateAdapter(
+class PagingPhotoAdapter(
     private val setLike: (photoId: String) -> Unit,
     private val deleteLike: (photoId: String) -> Unit
-) : AbsListItemAdapterDelegate<Photo, PhotoAndCollection, PhotoDelegateAdapter.PhotoHolder>() {
+) : PagingDataAdapter<Photo, PagingPhotoAdapter.PhotoHolder>(PhotoDiffUtilCallback()) {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup): PhotoHolder {
+    override fun onBindViewHolder(holder: PhotoHolder, position: Int) {
+        holder.bind(getItem(position)!!)
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): PhotoHolder {
         val binding =
             ItemPhotoListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PhotoHolder(binding, setLike, deleteLike)
     }
 
-    override fun onBindViewHolder(item: Photo, holder: PhotoHolder, payloads: MutableList<Any>) {
-        holder.bind(item)
-    }
+    class PhotoDiffUtilCallback : DiffUtil.ItemCallback<Photo>() {
+        override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-    override fun isForViewType(
-        item: PhotoAndCollection,
-        items: MutableList<PhotoAndCollection>,
-        position: Int
-    ): Boolean {
-        return item is Photo
-    }
 
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: Photo, newItem: Photo): Boolean {
+            return newItem == oldItem
+        }
+
+    }
 
     class PhotoHolder(
         private var binding: ItemPhotoListBinding,

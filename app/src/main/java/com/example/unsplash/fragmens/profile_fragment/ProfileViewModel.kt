@@ -71,10 +71,4 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
-    fun openCollectionPhotos(collectionId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val photoList = repository.getCollectionPhotos(collectionId)
-            listMutableLiveData.postValue(photoList)
-        }
-    }
 }
