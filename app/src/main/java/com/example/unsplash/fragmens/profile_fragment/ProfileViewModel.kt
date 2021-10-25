@@ -1,14 +1,12 @@
 package com.example.unsplash.fragmens.profile_fragment
 
-import android.provider.ContactsContract
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.unsplash.data.Photo
-import com.example.unsplash.data.PhotoAndCollection
-import com.example.unsplash.data.Profile
-import com.example.unsplash.data.User
+import com.example.unsplash.data.essences.PhotoAndCollection
+import com.example.unsplash.data.essences.user.Profile
+import com.example.unsplash.data.essences.user.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

@@ -3,14 +3,12 @@ package com.example.unsplash.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.example.unsplash.R
-import com.example.unsplash.data.Photo
-import com.example.unsplash.data.PhotoAndCollection
+import com.example.unsplash.data.essences.photo.Photo
+import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.databinding.ItemPhotoListBinding
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
@@ -64,7 +62,7 @@ class PhotoDelegateAdapter(
             }
 
             Glide.with(itemView)
-                .load(photo.urls.full)
+                .load(photo.urls?.full)
                 .into(binding.imageViewId)
 
             Glide.with(itemView)

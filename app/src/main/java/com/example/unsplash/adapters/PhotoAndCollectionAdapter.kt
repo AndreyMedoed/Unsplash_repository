@@ -2,9 +2,9 @@ package com.example.unsplash.adapters
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil
-import com.example.unsplash.data.Collection
-import com.example.unsplash.data.Photo
-import com.example.unsplash.data.PhotoAndCollection
+import com.example.unsplash.data.essences.collection.Collection
+import com.example.unsplash.data.essences.photo.Photo
+import com.example.unsplash.data.essences.PhotoAndCollection
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
 class PhotoAndCollectionAdapter(

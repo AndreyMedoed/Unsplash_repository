@@ -66,7 +66,6 @@ class CollectionFragment : Fragment(R.layout.collection_layout) {
         binding.recyclerViewId.adapter = adapter
     }
 
-
     private fun setLike(photoId: String) {
         viewModel.setLike(photoId)
     }
@@ -74,6 +73,5 @@ class CollectionFragment : Fragment(R.layout.collection_layout) {
     private fun deleteLike(photoId: String) {
         viewModel.deleteLike(photoId)
     }
-
 
 }

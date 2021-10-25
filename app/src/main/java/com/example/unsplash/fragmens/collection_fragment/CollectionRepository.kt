@@ -1,6 +1,6 @@
 package com.example.unsplash.fragmens.collection_fragment
 
-import com.example.unsplash.data.Photo
+import com.example.unsplash.data.essences.photo.Photo
 import com.skillbox.github.data.NetworkConfig
 
 class CollectionRepository {

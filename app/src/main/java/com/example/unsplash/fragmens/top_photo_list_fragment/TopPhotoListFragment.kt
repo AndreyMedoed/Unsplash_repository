@@ -8,28 +8,23 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.unsplash.R
 import com.example.unsplash.adapters.PagingPhotoAdapter
-import com.example.unsplash.adapters.PhotoAndCollectionAdapter
-import com.example.unsplash.data.Photo
+import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.databinding.TopPhotoListLayoutBinding
-import com.example.unsplash.utils.EndlessRecyclerViewScrollListener
 import com.example.unsplash.utils.ItemOffsetDecoration
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.skillbox.github.utils.autoCleared
 import jp.wasabeef.recyclerview.animators.FlipInTopXAnimator
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 
 class TopPhotoListFragment : Fragment(R.layout.top_photo_list_layout) {
@@ -68,14 +63,24 @@ class TopPhotoListFragment : Fragment(R.layout.top_photo_list_layout) {
 //            it?.let { adapter.submitData()}
 //        }
         Log.d("UnsplashLoggingPaging", "observe")
-        viewLifecycleOwner.lifecycleScope.launch{
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated{
             viewModel.getTopPhotosPaging().collectLatest {
+                Log.d("UnsplashLoggingPaging", "Передача данных адаптеру ${it.toString()}")
                 adapter.submitData(it)
-                Log.d("UnsplashLoggingPaging", it.toString())
             }
         }
 
-
+        lifecycleScope.launch {
+            //Your adapter's loadStateFlow here
+            adapter.loadStateFlow.
+            distinctUntilChangedBy {
+                it.refresh
+            }.collect {
+                //you get all the data here
+                val list = adapter.snapshot()
+                Log.d("UnsplashLoggingPaging", "$list")
+            }
+        }
     }
 
     private fun initAdapter() {

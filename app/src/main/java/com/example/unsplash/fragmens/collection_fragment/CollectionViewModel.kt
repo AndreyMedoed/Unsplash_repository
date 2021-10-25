@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.unsplash.data.PhotoAndCollection
+import com.example.unsplash.data.essences.PhotoAndCollection
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

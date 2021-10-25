@@ -1,7 +1,6 @@
 package com.example.unsplash.fragmens.profile_fragment
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,9 +13,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.unsplash.R
 import com.example.unsplash.adapters.PhotoAndCollectionAdapter
-import com.example.unsplash.data.Collection
-import com.example.unsplash.data.Profile
-import com.example.unsplash.data.User
+import com.example.unsplash.data.essences.collection.Collection
+import com.example.unsplash.data.essences.user.Profile
+import com.example.unsplash.data.essences.user.User
 import com.example.unsplash.databinding.ProfileLayoutBinding
 import com.skillbox.github.utils.autoCleared
 

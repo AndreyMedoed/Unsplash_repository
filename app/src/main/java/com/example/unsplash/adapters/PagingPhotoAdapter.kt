@@ -1,6 +1,7 @@
 package com.example.unsplash.adapters
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.example.unsplash.R
-import com.example.unsplash.data.Photo
+import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.databinding.ItemPhotoListBinding
 
 class PagingPhotoAdapter(
@@ -20,13 +21,18 @@ class PagingPhotoAdapter(
 
 
     override fun onBindViewHolder(holder: PhotoHolder, position: Int) {
-        holder.bind(getItem(position)!!)
+        val photoItem = getItem(position)
+        Log.d("UnsplashLoggingPaging", "onBindViewHolder")
+        if (photoItem != null) {
+            holder.bind(photoItem)
+        }
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): PhotoHolder {
+        Log.d("UnsplashLoggingPaging", "onCreateViewHolder")
         val binding =
             ItemPhotoListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PhotoHolder(binding, setLike, deleteLike)
@@ -34,12 +40,14 @@ class PagingPhotoAdapter(
 
     class PhotoDiffUtilCallback : DiffUtil.ItemCallback<Photo>() {
         override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
+            Log.d("UnsplashLoggingPaging", "areItemsTheSame")
             return oldItem.id == newItem.id
         }
 
 
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: Photo, newItem: Photo): Boolean {
+            Log.d("UnsplashLoggingPaging", "areContentsTheSame")
             return newItem == oldItem
         }
 
@@ -53,6 +61,8 @@ class PagingPhotoAdapter(
         private var isLiked = false
 
         fun bind(photo: Photo) {
+            Log.d("UnsplashLoggingPaging", "PhotoHolder -> bind")
+
 
             binding.fullnameTextViewId.text = "${photo.user?.first_name} ${photo.user?.last_name}"
             binding.usernameTextViewId.text = photo.user?.username
@@ -70,7 +80,7 @@ class PagingPhotoAdapter(
             }
 
             Glide.with(itemView)
-                .load(photo.urls.full)
+                .load(photo.urls?.full)
                 .into(binding.imageViewId)
 
             Glide.with(itemView)

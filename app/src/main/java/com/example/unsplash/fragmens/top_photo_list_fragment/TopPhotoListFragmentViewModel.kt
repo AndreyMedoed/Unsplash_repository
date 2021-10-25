@@ -9,17 +9,13 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.unsplash.Network.UnsplashApi
-import com.example.unsplash.data.Photo
-import com.example.unsplash.data.PhotoAndCollection
+import com.example.unsplash.data.essences.photo.Photo
+import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.paging.PhotoPagingSource
 import com.skillbox.github.data.NetworkConfig
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.util.concurrent.Flow
 
 class TopPhotoListFragmentViewModel : ViewModel() {
     private val repository = TopPhotoListRepository()

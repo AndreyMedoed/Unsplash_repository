@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.unsplash.R
 import com.example.unsplash.adapters.PhotoAndCollectionAdapter
-import com.example.unsplash.data.Collection
+import com.example.unsplash.data.essences.collection.Collection
 import com.example.unsplash.databinding.TopCollectionListLayoutBinding
 import com.skillbox.github.utils.autoCleared
 

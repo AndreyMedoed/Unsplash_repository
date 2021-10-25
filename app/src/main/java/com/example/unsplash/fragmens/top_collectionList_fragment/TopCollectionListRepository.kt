@@ -1,7 +1,7 @@
 package com.example.unsplash.fragmens.top_collectionList_fragment
 
-import com.example.unsplash.data.Collection
-import com.example.unsplash.data.Photo
+import com.example.unsplash.data.essences.collection.Collection
+import com.example.unsplash.data.essences.photo.Photo
 import com.skillbox.github.data.NetworkConfig
 
 class TopCollectionListRepository {

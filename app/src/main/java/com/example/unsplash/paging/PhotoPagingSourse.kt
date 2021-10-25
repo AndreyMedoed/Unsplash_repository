@@ -1,11 +1,10 @@
 package com.example.unsplash.paging
 
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.unsplash.Network.UnsplashApi
-import com.example.unsplash.data.Photo
+import com.example.unsplash.data.essences.photo.Photo
 
 //class PhotoPagingSource(
 //    private val unsplashApi: UnsplashApi

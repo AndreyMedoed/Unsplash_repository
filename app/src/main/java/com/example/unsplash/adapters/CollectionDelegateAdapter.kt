@@ -2,13 +2,11 @@ package com.example.unsplash.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.unsplash.R
-import com.example.unsplash.data.Collection
-import com.example.unsplash.data.PhotoAndCollection
+import com.example.unsplash.data.essences.collection.Collection
+import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.databinding.ItemCollectionListBinding
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 

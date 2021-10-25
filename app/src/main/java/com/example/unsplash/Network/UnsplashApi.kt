@@ -1,12 +1,12 @@
 package com.example.unsplash.Network
 
 
-import com.example.unsplash.data.Collection
-import com.example.unsplash.data.Photo
-import com.example.unsplash.data.Profile
-import com.example.unsplash.data.User
+import com.example.unsplash.data.essences.collection.Collection
+import com.example.unsplash.data.essences.photo.Photo
+import com.example.unsplash.data.essences.photo.photo_detail.PhotoDetail
+import com.example.unsplash.data.essences.user.Profile
+import com.example.unsplash.data.essences.user.User
 
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -64,5 +64,10 @@ interface UnsplashApi {
         @Query("page") page: String,
         @Query("order_by") order_by: String = "popular"
     ): List<Photo>?
+
+    @GET("/photos/{photoId}")
+    suspend fun getPhotoDetails(
+        @Path("photoId") photoId: String
+    ): PhotoDetail?
 
 }

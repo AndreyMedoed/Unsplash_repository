@@ -1,14 +1,10 @@
-package com.example.unsplash.data
+package com.example.unsplash.data.essences.user
 
-import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.parcelize.Parcelize
 
-
-@Parcelize
 @JsonClass(generateAdapter = true)
-data class User(
+data class Profile(
     @Json(name = "id")
     val id: String,
     @Json(name = "updated_at")
@@ -32,11 +28,9 @@ data class User(
     @Json(name = "followed_by_user")
     val followed_by_user: Boolean?,
     @Json(name = "downloads")
-    val downloads: String?,
+    val downloads: Int?,
     @Json(name = "email")
     val email: String?,
     @Json(name = "links")
-    val userLinks: UserLinks?,
-    @Json(name = "profile_image")
-    val profile_image: ProfileImage?
-) : Parcelable
+    val userLinks: UserLinks?
+)

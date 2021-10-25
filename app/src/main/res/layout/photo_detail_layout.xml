@@ -1,6 +1,353 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/photo_CardView_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/imageView_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
+
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/roundedImageView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="5dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:riv_corner_radius="20dp"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/fullname_textView_id"
+                style="@style/PhotoTextView_Body2"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintStart_toEndOf="@+id/roundedImageView"
+                app:layout_constraintTop_toTopOf="@+id/roundedImageView"
+                tools:text="@tools:sample/full_names" />
+
+            <TextView
+                android:id="@+id/username_textView_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="16dp"
+                android:textAppearance="@style/customLightCaption"
+                app:layout_constraintStart_toEndOf="@+id/roundedImageView"
+                app:layout_constraintTop_toBottomOf="@+id/fullname_textView_id"
+                tools:text="@tools:sample/full_names" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_like_id"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:layout_constraintBottom_toTopOf="@+id/like_Number_TextView_Id"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:lottie_fileName="lottie_like.json" />
+
+            <TextView
+                android:id="@+id/like_Number_TextView_Id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/customLightCaption"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/lottie_like_id"
+                tools:text="342" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/location_LinearLayout_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/photo_CardView_id">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_location" />
+
+        <TextView
+            android:id="@+id/location_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="@sample/locations" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tags_textView_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:textAppearance="?attr/textAppearanceBody2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_LinearLayout_id"
+        tools:text="#sport #health #power" />
+
+    <LinearLayout
+        android:id="@+id/made_With_LinearLayout_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tags_textView_id">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:gravity="start"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="Фирма: " />
+
+        <TextView
+            android:id="@+id/made_With_TextView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="Canon" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/model_LinearLayout_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/made_With_LinearLayout_id">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="Модель: " />
+
+        <TextView
+            android:id="@+id/model_TextView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="XY100" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/exposure_LinearLayout_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/model_LinearLayout_id">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="Экспозиция: " />
+
+        <TextView
+            android:id="@+id/exposure_TextView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="0.01s" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/aperture_LinearLayout_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exposure_LinearLayout_id">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="Объектив: " />
+
+        <TextView
+            android:id="@+id/aperture_TextView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="4.0342" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/focal_length_LinearLayout_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aperture_LinearLayout_id">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="Фокус: " />
+
+        <TextView
+            android:id="@+id/focal_length_TextView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="3.5" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/iso_LinearLayout_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/focal_length_LinearLayout_id">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="ISO: " />
+
+        <TextView
+            android:id="@+id/iso_TextView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="100" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/username_LinearLayout_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/tags_textView_id">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:gravity="start"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="Автор: @" />
+
+        <TextView
+            android:id="@+id/username_TextView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            tools:text="medoedAndrey" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/bio_TextView_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="5dp"
+        android:textAppearance="?attr/textAppearanceBody1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/username_LinearLayout_id"
+        tools:text="Всем привет, я фотограф. Фотографирую жуков и куриц." />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.46" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

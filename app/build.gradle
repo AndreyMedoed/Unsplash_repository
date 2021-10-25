@@ -149,11 +149,6 @@ dependencies {
     implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
 
     //add paging library
-    def pagingVersion = "3.0.1"
-    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
-
-
-
-
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    def paging_version = "3.0.1"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 }

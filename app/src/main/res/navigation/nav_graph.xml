@@ -49,7 +49,7 @@
         android:label="CollectionFragment" >
         <argument
             android:name="collection"
-            app:argType="com.example.unsplash.data.Collection" />
+            app:argType="com.example.unsplash.data.essences.collection.Collection" />
         <action
             android:id="@+id/action_collectionFragment_to_photoDetailFragment"
             app:destination="@id/photoDetailFragment" />
@@ -81,7 +81,7 @@
         android:label="PhotoDetailFragment" >
         <argument
             android:name="photo"
-            app:argType="com.example.unsplash.data.Photo" />
+            app:argType="com.example.unsplash.data.essences.photo.Photo" />
     </fragment>
 
 </navigation>

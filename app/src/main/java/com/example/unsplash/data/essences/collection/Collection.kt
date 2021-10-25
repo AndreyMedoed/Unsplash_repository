@@ -1,6 +1,9 @@
-package com.example.unsplash.data
+package com.example.unsplash.data.essences.collection
 
 import android.os.Parcelable
+import com.example.unsplash.data.essences.photo.Photo
+import com.example.unsplash.data.essences.PhotoAndCollection
+import com.example.unsplash.data.essences.user.User
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize

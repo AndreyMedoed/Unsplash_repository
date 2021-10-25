@@ -1,4 +1,4 @@
-package com.example.unsplash.data
+package com.example.unsplash.data.essences.collection
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
