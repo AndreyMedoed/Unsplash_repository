@@ -61,11 +61,4 @@ class TopPhotoListFragmentViewModel : ViewModel() {
             listMutableLiveData.postValue(photosList)
         }
     }
-
-
-
-
-
-
-
 }

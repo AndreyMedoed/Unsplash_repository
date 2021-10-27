@@ -65,7 +65,7 @@ class TopPhotoListFragment : Fragment(R.layout.top_photo_list_layout) {
         Log.d("UnsplashLoggingPaging", "observe")
         viewLifecycleOwner.lifecycleScope.launchWhenCreated{
             viewModel.getTopPhotosPaging().collectLatest {
-                Log.d("UnsplashLoggingPaging", "Передача данных адаптеру ${it.toString()}")
+                Log.d("UnsplashLoggingPaging", "Передача данных адаптеру ${it}")
                 adapter.submitData(it)
             }
         }

@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.unsplash.R
 import com.example.unsplash.adapters.PhotoAndCollectionAdapter
 import com.example.unsplash.data.essences.collection.Collection
+import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.data.essences.user.Profile
 import com.example.unsplash.data.essences.user.User
 import com.example.unsplash.databinding.ProfileLayoutBinding
@@ -96,7 +97,9 @@ class ProfileFragment : Fragment(R.layout.profile_layout) {
 
     private fun initAdapter() {
         adapter = PhotoAndCollectionAdapter({ photoId -> setLike(photoId) },
-            { photoId -> deleteLike(photoId) }, { collection -> openCollection(collection) }
+            { photoId -> deleteLike(photoId) },
+            { collection -> openCollection(collection) },
+            { photo -> openPhotoDetail(photo) }
         )
 
         binding.recyclerViewId.layoutManager =
@@ -145,6 +148,11 @@ class ProfileFragment : Fragment(R.layout.profile_layout) {
             activity?.supportFragmentManager?.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
         val action = ProfileFragmentDirections.actionProfileFragmentToCollectionFragment(collection)
+        findNavController().navigate(action)
+    }
+
+    private fun openPhotoDetail(photo: Photo) {
+        val action = ProfileFragmentDirections.actionProfileFragmentToPhotoDetailFragment(photo)
         findNavController().navigate(action)
     }
 

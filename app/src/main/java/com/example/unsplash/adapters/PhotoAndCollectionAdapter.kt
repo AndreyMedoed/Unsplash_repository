@@ -16,7 +16,7 @@ class PhotoAndCollectionAdapter(
 
     init {
         delegatesManager.addDelegate(CollectionDelegateAdapter(openCollectionPhotos))
-            .addDelegate(PhotoDelegateAdapter(setLike,deleteLike))
+            .addDelegate(PhotoDelegateAdapter(setLike,deleteLike,openPhotoDetails))
     }
 
     class PhotoAndCollectionDiffUtilCallback : DiffUtil.ItemCallback<PhotoAndCollection>() {

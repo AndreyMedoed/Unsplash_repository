@@ -40,6 +40,9 @@
             app:destination="@id/topCollectionListFragment"
             app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_authFragment_to_mainFragment2"
+            app:destination="@id/mainFragment" />
     </fragment>
 
     <fragment
@@ -83,5 +86,9 @@
             android:name="photo"
             app:argType="com.example.unsplash.data.essences.photo.Photo" />
     </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.rickandmorty.fragments.MainFragment"
+        android:label="MainFragment" />
 
 </navigation>

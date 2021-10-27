@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.unsplash.data.essences.PhotoAndCollection
+import com.example.unsplash.data.essences.photo.photo_detail.PhotoDetail
 import com.example.unsplash.data.essences.user.Profile
 import com.example.unsplash.data.essences.user.User
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,8 @@ class ProfileViewModel : ViewModel() {
     private val profileMutableLiveData = MutableLiveData<Profile?>()
     private val userMutableLiveData = MutableLiveData<User?>()
     private val listMutableLiveData = MutableLiveData<List<PhotoAndCollection>?>()
+    private val photoDetailMutableLiveData = MutableLiveData<PhotoDetail?>()
+
 
     val profileLiveData: LiveData<Profile?>
         get() = profileMutableLiveData
@@ -25,6 +28,8 @@ class ProfileViewModel : ViewModel() {
         get() = userMutableLiveData
     val listLiveData: LiveData<List<PhotoAndCollection>?>
         get() = listMutableLiveData
+    val photoDetailLiveData: LiveData<PhotoDetail?>
+        get() = photoDetailMutableLiveData
 
     fun getMyProfile() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -68,5 +73,6 @@ class ProfileViewModel : ViewModel() {
             listMutableLiveData.postValue(collectionList)
         }
     }
+
 
 }

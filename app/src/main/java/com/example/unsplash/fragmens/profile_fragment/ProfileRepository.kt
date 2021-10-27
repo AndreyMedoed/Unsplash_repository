@@ -2,6 +2,7 @@ package com.example.unsplash.fragmens.profile_fragment
 
 import com.example.unsplash.data.essences.collection.Collection
 import com.example.unsplash.data.essences.photo.Photo
+import com.example.unsplash.data.essences.photo.photo_detail.PhotoDetail
 import com.example.unsplash.data.essences.user.Profile
 import com.example.unsplash.data.essences.user.User
 import com.skillbox.github.data.NetworkConfig
@@ -30,5 +31,6 @@ class ProfileRepository {
 
     suspend fun getCollectionPhotos(collectionId: String): List<Photo>? =
         NetworkConfig.unsplashApi.getCollectionPhotos(collectionId)
+
 
 }

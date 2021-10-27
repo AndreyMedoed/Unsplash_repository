@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -56,7 +57,7 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
     private fun observe() {
         viewModel.photoDetailLiveData.observe(viewLifecycleOwner) {
             Log.d("UnsplashLogging", "PhotoDetail  is $it")
-          //  bindPhotoDetail(it)
+            bindPhotoDetail(it)
         }
     }
 
@@ -112,15 +113,25 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
             }
         }
     }
-/*
+
     private fun bindPhotoDetail(photoDetail: PhotoDetail?) {
         if (photoDetail == null) return
-        binding.profileAvatar
-        Glide.with(requireContext())
-            .load(user.profile_image?.large)
-            .into(binding.profileAvatar)
+        if (photoDetail.location != null) {
+            binding.locationTextViewId.text =
+                "${photoDetail.location?.city}, ${photoDetail.location?.country}"
+        } else binding.locationImageViewId.isVisible = false
 
-    }*/
+        binding.tagsTextViewId.text = photoDetail.tags?.joinToString { "#${it.title} " }
+        binding.madeWithTextViewId.text = photoDetail.exif?.make
+        binding.modelTextViewId.text = photoDetail.exif?.model
+        binding.exposureTextViewId.text = photoDetail.exif?.exposure_time
+        binding.apertureTextViewId.text = photoDetail.exif?.aperture
+        binding.focalLengthTextViewId.text = photoDetail.exif?.focal_length
+        binding.isoTextViewId.text = photoDetail.exif?.iso.toString()
+        binding.usernameTextViewId.text = photoDetail.user?.username
+        binding.descriptionTextViewId.text = photoDetail.description
+        binding.downloadsNumberId.text = "(${photoDetail.downloads?.toString()})"
+    }
 
 
     private fun setLike(photoId: String) {

@@ -24,6 +24,8 @@ data class PhotoDetail(
     var liked_by_user: Boolean,
     @Json(name = "user")
     val user: User?,
+    @Json(name = "downloads")
+    val downloads: Int?,
     @Json(name = "exif")
     val exif: Exif?,
     @Json(name = "location")

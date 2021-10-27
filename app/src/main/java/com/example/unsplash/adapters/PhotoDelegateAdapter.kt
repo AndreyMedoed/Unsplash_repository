@@ -14,14 +14,15 @@ import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
 class PhotoDelegateAdapter(
     private val setLike: (photoId: String) -> Unit,
-    private val deleteLike: (photoId: String) -> Unit
+    private val deleteLike: (photoId: String) -> Unit,
+    private val openPhotoDetails: ((photo: Photo) -> Unit)? = null
 ) : AbsListItemAdapterDelegate<Photo, PhotoAndCollection, PhotoDelegateAdapter.PhotoHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup): PhotoHolder {
         val binding =
             ItemPhotoListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PhotoHolder(binding, setLike, deleteLike)
+        return PhotoHolder(binding, setLike, deleteLike, openPhotoDetails)
     }
 
     override fun onBindViewHolder(item: Photo, holder: PhotoHolder, payloads: MutableList<Any>) {
@@ -40,11 +41,16 @@ class PhotoDelegateAdapter(
     class PhotoHolder(
         private var binding: ItemPhotoListBinding,
         private val setLike: (photoId: String) -> Unit,
-        private val deleteLike: (photoId: String) -> Unit
+        private val deleteLike: (photoId: String) -> Unit,
+        private val openPhotoDetails: ((photo: Photo) -> Unit)? = null
     ) : RecyclerView.ViewHolder(binding.root) {
         private var isLiked = false
 
         fun bind(photo: Photo) {
+
+            binding.imageViewId.setOnClickListener {
+                openPhotoDetails?.invoke(photo)
+            }
 
             binding.fullnameTextViewId.text = "${photo.user?.first_name} ${photo.user?.last_name}"
             binding.usernameTextViewId.text = photo.user?.username

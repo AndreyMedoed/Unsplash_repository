@@ -57,9 +57,13 @@ class AuthFragment : Fragment(R.layout.authorization_layout) {
         viewModel.openAuthPageLiveData.observe(viewLifecycleOwner, ::openAuthPage)
         viewModel.toastLiveData.observe(viewLifecycleOwner, ::toast)
         viewModel.authSuccessLiveData.observe(viewLifecycleOwner) {
-            val controller = findNavController()
+           /** val controller = findNavController()
             controller.navigate(AuthFragmentDirections.actionAuthFragmentToTopPhotoListFragment())
-            controller.popBackStack(R.id.authFragment, true)
+            controller.popBackStack(R.id.authFragment, true)*/
+           val controller = findNavController()
+            controller.navigate(AuthFragmentDirections.actionAuthFragmentToMainFragment2())
+           // controller.popBackStack(R.id.authFragment, true)
+
         }
     }
 
