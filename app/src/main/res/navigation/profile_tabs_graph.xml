@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tabs_graph"
+    app:startDestination="@id/my_likes">
+    <include app:graph="@navigation/my_photos" />
+    <include app:graph="@navigation/my_collections" />
+    <include app:graph="@navigation/my_likes" />
+</navigation>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/photos"
+    app:startDestination="@id/topPhotoListFragment2">
+    <fragment
+        android:id="@+id/topPhotoListFragment2"
+        android:name="com.example.unsplash.screens.main.tabs.top_photo_list_fragment.TopPhotoListFragment"
+        android:label="TopPhotoListFragment"
+        tools:layout="@layout/top_photo_list_layout">
+        <action
+            android:id="@+id/action_topPhotoListFragment2_to_photoDetailFragment4"
+            app:destination="@id/photoDetailFragment4" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/photoDetailFragment4"
+        android:name="com.example.unsplash.screens.main.photo_detail_fragment.PhotoDetailFragment"
+        android:label="PhotoDetailFragment"
+        tools:layout="@layout/photo_detail_layout" >
+        <argument
+            android:name="photo"
+            app:argType="com.example.unsplash.data.essences.photo.Photo" />
+    </fragment>
+</navigation>

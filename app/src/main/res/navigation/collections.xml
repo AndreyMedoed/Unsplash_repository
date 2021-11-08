@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/collections"
+    app:startDestination="@id/topCollectionListFragment2">
+    <fragment
+        android:id="@+id/topCollectionListFragment2"
+        android:name="com.example.unsplash.screens.main.tabs.top_collectionList_fragment.TopCollectionListFragment"
+        android:label="TopCollectionListFragment"
+        tools:layout="@layout/top_collection_list_layout">
+        <action
+            android:id="@+id/action_topCollectionListFragment2_to_collectionFragment2"
+            app:destination="@id/collectionFragment2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/collectionFragment2"
+        android:name="com.example.unsplash.screens.main.collection_fragment.CollectionFragment"
+        android:label="CollectionFragment"
+        tools:layout="@layout/collection_layout">
+        <action
+            android:id="@+id/action_collectionFragment2_to_photoDetailFragment3"
+            app:destination="@id/photoDetailFragment3" />
+        <argument
+            android:name="collection"
+            app:argType="com.example.unsplash.data.essences.collection.Collection" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/photoDetailFragment3"
+        android:name="com.example.unsplash.screens.main.photo_detail_fragment.PhotoDetailFragment"
+        android:label="PhotoDetailFragment"
+        tools:layout="@layout/photo_detail_layout">
+        <argument
+            android:name="photo"
+            app:argType="com.example.unsplash.data.essences.photo.Photo" />
+    </fragment>
+</navigation>

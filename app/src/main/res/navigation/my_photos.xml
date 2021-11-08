@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/my_photos"
+    app:startDestination="@id/myPhotoFragment">
+
+    <fragment
+        android:id="@+id/myPhotoFragment"
+        android:name="com.example.unsplash.screens.main.tabs.profile_fragment.myPhotoFragment.MyPhotoFragment"
+        android:label="MyPhotoFragment" >
+        <action
+            android:id="@+id/action_myPhotoFragment_to_photoDetailFragment"
+            app:destination="@id/photoDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoDetailFragment"
+        android:name="com.example.unsplash.screens.main.photo_detail_fragment.PhotoDetailFragment"
+        android:label="PhotoDetailFragment" >
+        <argument
+            android:name="photo"
+            app:argType="com.example.unsplash.data.essences.photo.Photo" />
+    </fragment>
+</navigation>

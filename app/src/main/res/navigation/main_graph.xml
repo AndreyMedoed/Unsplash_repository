@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/signInFragment">
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.unsplash.screens.splash.fragmens.authorization_fragment_.AuthFragment"
+        android:label="screen_sign_in"
+        tools:layout="@layout/authorization_layout">
+        <action
+            android:id="@+id/action_signInFragment_to_tabsFragment"
+            app:destination="@id/tabsFragment"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tabsFragment"
+        android:name="com.example.unsplash.screens.main.tabs.TabsFragment"
+        android:label="fragment_tabs"
+        tools:layout="@layout/fragment_tabs">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/onboadingFragment2"
+        android:name="com.example.unsplash.screens.splash.fragmens.onboarding_fragment.OnboadingFragment"
+        android:label="OnboadingFragment"
+        tools:layout="@layout/onboarding_layout">
+        <action
+            android:id="@+id/action_onboadingFragment2_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+
+</navigation>

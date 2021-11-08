@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/my_collections"
+    app:startDestination="@id/myCollectionsFragment">
+
+    <fragment
+        android:id="@+id/myCollectionsFragment"
+        android:name="com.example.unsplash.screens.main.tabs.profile_fragment.myCollectionsFragment.MyCollectionsFragment"
+        android:label="MyCollectionsFragment">
+        <action
+            android:id="@+id/action_myCollectionsFragment_to_collectionFragment"
+            app:destination="@id/collectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/collectionFragment"
+        android:name="com.example.unsplash.screens.main.collection_fragment.CollectionFragmentInMy"
+        android:label="CollectionFragment">
+        <action
+            android:id="@+id/action_collectionFragment_to_photoDetailFragment5"
+            app:destination="@id/photoDetailFragment5" />
+        <argument
+            android:name="collection"
+            app:argType="com.example.unsplash.data.essences.collection.Collection" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoDetailFragment5"
+        android:name="com.example.unsplash.screens.main.photo_detail_fragment.PhotoDetailFragment"
+        android:label="PhotoDetailFragment">
+        <argument
+            android:name="photo"
+            app:argType="com.example.unsplash.data.essences.photo.Photo" />/>
+    </fragment>
+</navigation>

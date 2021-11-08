@@ -4,9 +4,11 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.roomdao.dataBase.dao.*
 import com.example.unsplash.dataBase.dao.PhotoDao
+import com.example.unsplash.dataBase.dao.RemoteKeyDao
 import com.example.unsplash.dataBase.dao.PhotoUrlDao
 import com.example.unsplash.dataBase.dao.ProfileDao
 import com.example.unsplash.dataBase.dataBaseEssences.*
+import com.example.unsplash.dataBase.dataBaseEssences.remoteKeys.RemoteKey
 
 
 @Database(
@@ -18,7 +20,8 @@ import com.example.unsplash.dataBase.dataBaseEssences.*
         ProfileDB::class,
         ProfileImageDB::class,
         UserDB::class,
-        UserLinksDB::class],
+        UserLinksDB::class,
+        RemoteKey::class],
     version = AppDatabase.DB_VERSION
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -31,6 +34,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun profileImageDao(): ProfileImageDao
     abstract fun userDao(): UserDao
     abstract fun userLinksDao(): UserLinksDao
+    abstract fun photoRemoteKeyDao(): RemoteKeyDao
 
     companion object {
         const val DB_VERSION = 1

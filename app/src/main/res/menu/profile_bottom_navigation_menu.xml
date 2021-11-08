@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/photo_list_item"
+        android:id="@+id/my_photos"
         android:enabled="true"
         android:title="фотографии" />
     <item
-        android:id="@+id/likes_list_item"
+        android:id="@+id/my_likes"
         android:enabled="true"
         android:title="понравилось" />
     <item
-        android:id="@+id/collection_list_item"
+        android:id="@+id/my_collections"
         android:enabled="true"
         android:title="коллекции" />
 </menu>

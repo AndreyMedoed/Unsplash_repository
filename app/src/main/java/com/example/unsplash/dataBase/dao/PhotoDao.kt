@@ -1,5 +1,6 @@
 package com.example.unsplash.dataBase.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -16,8 +17,16 @@ interface PhotoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPhoto(photo: PhotoDB)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertPhotos(photos: List<PhotoDB>?)
 
     @Query("SELECT * FROM ${PhotoContract.TABLE_NAME} WHERE ${PhotoContract.Columns.ID} =:id")
     suspend fun getPhotoById(id: String): PhotoDB?
+
+    @Query("SELECT * FROM ${PhotoContract.TABLE_NAME} WHERE mark = :marker")
+    fun postsByTopPhotos(marker: String): PagingSource<Int, PhotoDB>
+
+    @Query("DELETE FROM ${PhotoContract.TABLE_NAME} WHERE mark = :marker")
+    suspend fun deleteByMarker(marker: String)
 
 }

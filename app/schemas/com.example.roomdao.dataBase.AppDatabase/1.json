@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ba691aaec855dc25d246c13cf17d202d",
+    "identityHash": "e76996c98f8260f7566af80cbf7a887c",
     "entities": [
       {
         "tableName": "collection",
@@ -685,12 +685,38 @@
           }
         ],
         "foreignKeys": []
+      },
+      {
+        "tableName": "remote_keys",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`marker` TEXT NOT NULL COLLATE NOCASE, `nextPageKey` TEXT, PRIMARY KEY(`marker`))",
+        "fields": [
+          {
+            "fieldPath": "marker",
+            "columnName": "marker",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nextPageKey",
+            "columnName": "nextPageKey",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "marker"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ba691aaec855dc25d246c13cf17d202d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e76996c98f8260f7566af80cbf7a887c')"
     ]
   }
 }

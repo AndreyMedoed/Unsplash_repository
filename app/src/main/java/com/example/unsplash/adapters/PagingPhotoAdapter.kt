@@ -16,7 +16,8 @@ import com.example.unsplash.databinding.ItemPhotoListBinding
 
 class PagingPhotoAdapter(
     private val setLike: (photoId: String) -> Unit,
-    private val deleteLike: (photoId: String) -> Unit
+    private val deleteLike: (photoId: String) -> Unit,
+    private val openPhotoDetails: ((photo: Photo) -> Unit)
 ) : PagingDataAdapter<Photo, PagingPhotoAdapter.PhotoHolder>(PhotoDiffUtilCallback()) {
 
 
@@ -35,7 +36,7 @@ class PagingPhotoAdapter(
         Log.d("UnsplashLoggingPaging", "onCreateViewHolder")
         val binding =
             ItemPhotoListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PhotoHolder(binding, setLike, deleteLike)
+        return PhotoHolder(binding, setLike, deleteLike, openPhotoDetails)
     }
 
     class PhotoDiffUtilCallback : DiffUtil.ItemCallback<Photo>() {
@@ -56,19 +57,22 @@ class PagingPhotoAdapter(
     class PhotoHolder(
         private var binding: ItemPhotoListBinding,
         private val setLike: (photoId: String) -> Unit,
-        private val deleteLike: (photoId: String) -> Unit
+        private val deleteLike: (photoId: String) -> Unit,
+        private val openPhotoDetails: ((photo: Photo) -> Unit)
     ) : RecyclerView.ViewHolder(binding.root) {
         private var isLiked = false
 
         fun bind(photo: Photo) {
-            Log.d("UnsplashLoggingPaging", "PhotoHolder -> bind")
 
+            binding.imageViewId.setOnClickListener {
+                openPhotoDetails(photo)
+            }
 
             binding.fullnameTextViewId.text = "${photo.user?.first_name} ${photo.user?.last_name}"
             binding.usernameTextViewId.text = photo.user?.username
             binding.likeNumberTextViewId.text = photo.likes?.toString()
 
-            if (photo.statistics != null) {
+            if (photo.statistics?.downloads?.total != null) {
                 binding.downloadsNumberId.text = "(${photo.statistics?.downloads?.total})"
                 binding.downloadsNumberId.isVisible = true
                 binding.downIconId.isVisible = true

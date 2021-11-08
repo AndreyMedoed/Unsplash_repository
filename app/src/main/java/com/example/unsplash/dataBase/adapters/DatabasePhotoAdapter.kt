@@ -51,4 +51,8 @@ class DatabasePhotoAdapter {
         }
     }
 
+    suspend fun deletePhotosByMarker(marker: String){
+        photoDao.deleteByMarker(marker)
+    }
+
 }

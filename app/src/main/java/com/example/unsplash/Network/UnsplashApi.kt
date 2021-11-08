@@ -1,11 +1,13 @@
 package com.example.unsplash.Network
 
 
+import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.data.essences.collection.Collection
 import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.data.essences.photo.photo_detail.PhotoDetail
 import com.example.unsplash.data.essences.user.Profile
 import com.example.unsplash.data.essences.user.User
+import okhttp3.ResponseBody
 
 import retrofit2.Response
 import retrofit2.http.*
@@ -59,15 +61,40 @@ interface UnsplashApi {
     @GET("/collections")
     suspend fun getTopCollections(): List<Collection>?
 
+
     @GET("/photos")
     suspend fun getTopPhotos(
-        @Query("page") page: String,
+        @Query("page") page: String? = null,
+        @Query("per_page") pageSize: String? = "25",
         @Query("order_by") order_by: String = "popular"
-    ): List<Photo>?
+    ): Response<List<Photo>>
 
     @GET("/photos/{photoId}")
     suspend fun getPhotoDetails(
         @Path("photoId") photoId: String
     ): PhotoDetail?
+
+    @GET
+    suspend fun downloadPhoto(
+        @Url
+        url: String
+    ): ResponseBody
+
+
+    @GET
+    suspend fun getPagingPhotoContent(
+        @Url url: String,
+        @Query("page") page: String? = null,
+        @Query("per_page") pageSize: String? = "25",
+        @Query("order_by") order_by: String? = null
+    ): Response<List<Photo>>
+
+    @GET
+    suspend fun getPagingCollectionContent(
+        @Url url: String,
+        @Query("page") page: String? = null,
+        @Query("per_page") pageSize: String? = "15",
+        @Query("order_by") order_by: String? = null
+    ): Response<List<Collection>>
 
 }
