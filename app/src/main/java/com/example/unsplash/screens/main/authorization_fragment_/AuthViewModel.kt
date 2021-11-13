@@ -9,8 +9,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.unsplash.R
+import com.example.unsplash.screens.main.authorization_fragment_.AuthRepository
 import com.example.unsplash.utils.SingleLiveEvent
-import com.example.unsplash.Network.AuthRepository
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationService
 import net.openid.appauth.TokenRequest

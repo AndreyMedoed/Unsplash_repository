@@ -8,6 +8,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationManagerCompat
 
+/** Канал для уведомления о скачивании фото */
 object NotificationChannels {
 
     const val NEWS_CHANNEL_ID = "news"
@@ -22,7 +23,7 @@ object NotificationChannels {
     private fun createNewsChannel(context: Context) {
         val name = "News"
         val channelDescription = "App news"
-        val priority = NotificationManager.IMPORTANCE_HIGH
+        val priority = NotificationManager.IMPORTANCE_LOW
 
         val channel = NotificationChannel(NEWS_CHANNEL_ID, name, priority).apply {
             description = channelDescription

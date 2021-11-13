@@ -18,19 +18,17 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.unsplash.R
 import com.example.unsplash.adapters.PagingPhotoAndCollectionAdapter
-import com.example.unsplash.adapters.PhotoAndCollectionAdapter
-import com.example.unsplash.data.adapters.DatabasePhotoAdapter
+import com.example.unsplash.dataBase.adapters.DatabasePhotoAdapter
 import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.data.essences.photo.Photo
-import com.example.unsplash.databinding.CollectionLayoutBinding
 import com.example.unsplash.databinding.CollectionMyLayoutBinding
-import com.example.unsplash.screens.main.tabs.profile_fragment.myPhotoFragment.MyPhotoFragmentDirections
 import com.example.unsplash.screens.splash.fragmens.collection_fragment.CollectionViewModel
 import com.skillbox.github.utils.autoCleared
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
+/** Этот фрагмент для коллекций которые открываются внутри  MyCollectionsFragment, в профиле.*/
 class CollectionFragmentInMy : Fragment(R.layout.collection_my_layout) {
 
     private val binding: CollectionMyLayoutBinding by viewBinding()
@@ -55,9 +53,12 @@ class CollectionFragmentInMy : Fragment(R.layout.collection_my_layout) {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.postsOfPhotos(
+                /** Передаем урл в качестве маркера*/
                 photoUrl,
                 NUMBER_PHOTOS_ON_PAGE
             ).map { pagingData ->
+                /** Каждый экземпляр, который получаем из базы данных, нам нужно превратить в
+                 * экземпляр обычного класса*/
                 pagingData.map { photoDB ->
                     databasePhotoAdapter.fromDBPhotoToPhoto(photoDB.id) as PhotoAndCollection
                 }

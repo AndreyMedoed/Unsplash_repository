@@ -1,22 +1,13 @@
-package com.example.unsplash.screens.splash.fragmens.top_collectionList_fragment
+package com.example.unsplash.screens.main.tabs.top_collectionList_fragment
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
-import com.example.unsplash.data.essences.PhotoAndCollection
-import kotlinx.coroutines.Dispatchers
+import com.example.unsplash.screens.splash.fragmens.top_collectionList_fragment.TopCollectionListRepository
 import kotlinx.coroutines.launch
 
 class TopCollectionListFragmentViewModel: ViewModel() {
     private val repository = TopCollectionListRepository()
-
-    private val listMutableLiveData = MutableLiveData<List<PhotoAndCollection>?>()
-
-    val listLiveData: LiveData<List<PhotoAndCollection>?>
-        get() = listMutableLiveData
-
 
     fun setLike(photoId: String) {
         viewModelScope.launch {
@@ -30,17 +21,7 @@ class TopCollectionListFragmentViewModel: ViewModel() {
         }
     }
 
-
-    fun getTopCollections() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val collectionList = repository.getTopCollections()
-            listMutableLiveData.postValue(collectionList)
-        }
-    }
-
     @ExperimentalPagingApi
     fun postsOfCollections(marker: String, pageSize: Int) = repository.postsOfCollections(marker, pageSize)
-
-
 
 }

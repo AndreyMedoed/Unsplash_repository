@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_topPhotoListFragment2_to_photoDetailFragment4"
             app:destination="@id/photoDetailFragment4" />
+        <action
+            android:id="@+id/action_topPhotoListFragment2_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 
     <fragment
@@ -22,5 +25,14 @@
         <argument
             android:name="photo"
             app:argType="com.example.unsplash.data.essences.photo.Photo" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        tools:layout="@layout/photo_list_fragment_layout"
+        android:name="com.example.unsplash.screens.main.tabs.top_photo_list_fragment.searchFragment.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_photoDetailFragment4"
+            app:destination="@id/photoDetailFragment4" />
     </fragment>
 </navigation>

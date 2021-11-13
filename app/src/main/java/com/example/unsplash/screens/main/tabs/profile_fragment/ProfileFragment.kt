@@ -29,8 +29,6 @@ class ProfileFragment : Fragment(R.layout.profile_layout) {
         )
     }
 
-
-    @ExperimentalPagingApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -51,7 +49,6 @@ class ProfileFragment : Fragment(R.layout.profile_layout) {
     }
 
 
-    @ExperimentalPagingApi
     private fun observe() {
         viewModel.profileLiveData.observe(viewLifecycleOwner) { profile ->
             Log.d("UnsplashLogging", "My profile is $profile")

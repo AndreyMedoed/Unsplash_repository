@@ -9,8 +9,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.roomdao.dataBase.Database
 import com.example.unsplash.Network.UnsplashApi
-import com.example.unsplash.data.adapters.DatabaseCollectionAdapter
-import com.example.unsplash.data.adapters.DatabasePhotoAdapter
+import com.example.unsplash.dataBase.adapters.DatabaseCollectionAdapter
 import com.example.unsplash.dataBase.dataBaseEssences.CollectionDB
 import com.example.unsplash.dataBase.dataBaseEssences.remoteKeys.RemoteKey
 import retrofit2.HttpException
@@ -20,6 +19,9 @@ import java.io.IOException
 class CollectionRemoteMediator(
     private val db: Database,
     private val unsplashApi: UnsplashApi,
+    /** Маркер это особая метка, которая будет храниться в поле у каждого элемента в базе данных,
+     *  В моем случае меткой служит запрос, по которому я получал тот или иной объект. Например фото или пользователя.
+     *  По этому маркеру я потом буду искать его среди прочих объектов.*/
     private val marker: String,
     private val pageSize: Int
 ) : RemoteMediator<Int, CollectionDB>() {
@@ -45,7 +47,9 @@ class CollectionRemoteMediator(
                     val remoteKey = db.instance.withTransaction {
                         remoteKeyDao.remoteKeyByMarker(marker)
                     }
-
+                    /** Для отслеживания номера следующей страницы у меня есть специальный класс RemoteKey.
+                     * он хранит какая страница следующая для каждого из запросов(маркеров).  Если запрос был последним,
+                     * то ему присваевается значение end*/
                     if (remoteKey?.nextPageKey == "end") {
                         return MediatorResult.Success(endOfPaginationReached = true)
                     }
@@ -58,18 +62,6 @@ class CollectionRemoteMediator(
                 loadKey, pageSize.toString()
             )
 
-//            val links = response.headers().get("link")
-//            val links1 = links?.substring(0, links.length - 13)
-//            var pageNumber: String = ""
-//
-//            links1?.length?.let {
-//                var i = it
-//                while (links1[i - 1] != '=') {
-//                    pageNumber = links1[i - 1] + pageNumber
-//                    i--
-//                }
-//            }
-
             var pageNumber: String = when {
                 loadKey == null -> "2"
                 else -> {
@@ -79,8 +71,6 @@ class CollectionRemoteMediator(
             }
 
             val collectionList = response.body()
-//            Log.d("UnsplashLoggingResponse", "collectionList response.headers().get(link)  ${links}")
-//            Log.d("UnsplashLoggingResponse", "collectionList links1  ${links1}")
             Log.d("UnsplashLoggingResponse", "collectionList pageNumber  ${pageNumber}")
 
             Log.d(

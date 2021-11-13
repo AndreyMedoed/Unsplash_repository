@@ -25,7 +25,7 @@ import com.example.unsplash.R
 import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.data.essences.photo.photo_detail.PhotoDetail
 import com.example.unsplash.databinding.PhotoDetailLayoutBinding
-import com.example.unsplash.screens.splash.fragmens.photo_detail_fragment.PhotoDetailViewModel
+import com.example.unsplash.screens.main.MainActivity
 
 class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
 
@@ -35,6 +35,7 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
     private val receiver = NetworkBroadcastReceiver()
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
+
     /* Лаунчер для пикера файлов, чтоб выбрать папку, куда загрузится фото*/
     private lateinit var selectDocumentLauncher: ActivityResultLauncher<Uri>
     private var isLiked = false
@@ -147,12 +148,12 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
         }
         binding.textButtonDownload.setOnClickListener {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                downloadWithPermission(photoDetail)
-            } else downloadWithoutPermission(photoDetail)
+                downloadWithPermission()
+            } else downloadWithoutPermission()
         }
     }
 
-    private fun downloadWithPermission(photoDetail: PhotoDetail) {
+    private fun downloadWithPermission() {
         if (hasPermission().not()) {
             requestPermission()
         } else {
@@ -160,7 +161,7 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
         }
     }
 
-    private fun downloadWithoutPermission(photoDetail: PhotoDetail) {
+    private fun downloadWithoutPermission() {
         selectDirectory()
     }
 
@@ -246,7 +247,6 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
         super.onPause()
         requireContext().unregisterReceiver(receiver)
     }
-
 
 
     companion object {

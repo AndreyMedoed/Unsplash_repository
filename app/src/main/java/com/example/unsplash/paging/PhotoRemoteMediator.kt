@@ -9,8 +9,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.roomdao.dataBase.Database
 import com.example.unsplash.Network.UnsplashApi
-import com.example.unsplash.data.adapters.DatabasePhotoAdapter
-import com.example.unsplash.dataBase.dao.PhotoDao
+import com.example.unsplash.dataBase.adapters.DatabasePhotoAdapter
 import com.example.unsplash.dataBase.dataBaseEssences.PhotoDB
 import com.example.unsplash.dataBase.dataBaseEssences.remoteKeys.RemoteKey
 import retrofit2.HttpException
@@ -48,7 +47,9 @@ class PhotoRemoteMediator(
                     val remoteKey = db.instance.withTransaction {
                         remoteKeyDao.remoteKeyByMarker(marker)
                     }
-
+                    /** Для отслеживания номера следующей страницы у меня есть специальный класс RemoteKey.
+                     * он хранит какая страница следующая для каждого из запросов(маркеров).  Если запрос был последним,
+                     * то ему присваевается значение end*/
                     if (remoteKey?.nextPageKey == "end") {
                         return MediatorResult.Success(endOfPaginationReached = true)
                     }
@@ -63,17 +64,6 @@ class PhotoRemoteMediator(
                 pageSize.toString()
             )
 
-//            val links = response.headers().get("link")
-//            val links1 = links?.substring(0, links.length - 25)
-//            var pageNumber: String = ""
-
-//            links1?.length?.let {
-//                var i = it
-//                while (links1[i - 1] != '=') {
-//                    pageNumber = links1[i - 1] + pageNumber
-//                    i--
-//                }
-//            }
             var pageNumber: String = when {
                 loadKey == null -> "2"
                 else -> {
@@ -83,8 +73,6 @@ class PhotoRemoteMediator(
             }
 
             val photoList = response.body()
-//            Log.d("UnsplashLoggingResponse", "response.headers().get(link)  ${links}")
-//            Log.d("UnsplashLoggingResponse", "links1  ${links1}")
             Log.d("UnsplashLoggingResponse", "pageNumber  ${pageNumber}")
 
             Log.d("UnsplashLoggingResponse", "response.headers()  ${response.headers()}")

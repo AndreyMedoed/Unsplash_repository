@@ -23,9 +23,6 @@ class TopCollectionListRepository {
     suspend fun getCollectionPhotos(collectionId: String): List<Photo>? =
         NetworkConfig.unsplashApi.getCollectionPhotos(collectionId)
 
-    suspend fun getTopCollections(): List<Collection>? =
-        NetworkConfig.unsplashApi.getTopCollections()
-
 
     @ExperimentalPagingApi
     fun postsOfCollections(marker: String, pageSize: Int) = Pager(

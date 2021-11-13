@@ -1,4 +1,4 @@
-package com.example.unsplash.Network
+package com.example.unsplash.screens.main.authorization_fragment_
 
 import android.net.Uri
 import android.util.Log

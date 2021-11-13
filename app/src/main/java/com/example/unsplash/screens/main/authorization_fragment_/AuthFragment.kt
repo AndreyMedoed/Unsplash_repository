@@ -12,7 +12,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.unsplash.databinding.AuthorizationLayoutBinding
 import com.example.unsplash.R
 import com.skillbox.github.ui.auth.AuthViewModel
-import com.skillbox.github.utils.toast
+import com.example.unsplash.utils.toast
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
 

@@ -33,7 +33,17 @@ class PagingPhotoAndCollectionAdapter(
             when {
                 holder is PhotoHolder && item is Photo -> holder.bind(item)
                 holder is CollectionHolder && item is Collection -> holder.bind(item)
+
             }
+        } else {
+                /** Если приходит null из БД, то обозначаем холдер как PhotoHolder и
+                 * даем ему заглушку в виде пустого экзенпляра класса фото. */
+            (holder as PhotoHolder).bind(
+                Photo(
+                    "", "", null, null,
+                    false, null, null
+                )
+            )
         }
     }
 
@@ -41,8 +51,9 @@ class PagingPhotoAndCollectionAdapter(
         return when (getItem(position)) {
             is Photo -> PHOTO_CONSTANT
             is Collection -> COLLECTION_CONSTANT
+            null -> NULL_CONSTANT
             else -> {
-                Log.d("UnsplashLoggingPaging","getItem(position) = ${getItem(position)}" )
+                Log.d("UnsplashLoggingPaging", "getItem(position) = ${getItem(position)}")
                 error("Некорректный элемент списка, нельзя сгенерировать ViewType")
             }
         }
@@ -60,6 +71,7 @@ class PagingPhotoAndCollectionAdapter(
         return when (viewType) {
             PHOTO_CONSTANT -> PhotoHolder(photoBinding, setLike, deleteLike, openPhotoDetails)
             COLLECTION_CONSTANT -> CollectionHolder(collectionBinding, openCollectionPhotos)
+            NULL_CONSTANT -> PhotoHolder(photoBinding, { }, { }, { })
             else -> error("Неверный ViewType в функции onCreateViewHolder")
         }
     }
@@ -70,7 +82,7 @@ class PagingPhotoAndCollectionAdapter(
             newItem: PhotoAndCollection
         ): Boolean {
             Log.d("UnsplashLoggingPaging", "areItemsTheSame")
-            return when{
+            return when {
                 oldItem is Photo && newItem is Photo -> oldItem.id == newItem.id
                 oldItem is Collection && newItem is Collection -> oldItem.id == newItem.id
                 else -> false
@@ -84,8 +96,8 @@ class PagingPhotoAndCollectionAdapter(
             newItem: PhotoAndCollection
         ): Boolean {
             Log.d("UnsplashLoggingPaging", "areContentsTheSame")
-            return when{
-                oldItem is Photo && newItem is Photo -> oldItem== newItem
+            return when {
+                oldItem is Photo && newItem is Photo -> oldItem == newItem
                 oldItem is Collection && newItem is Collection -> oldItem == newItem
                 else -> false
             }
@@ -197,5 +209,6 @@ class PagingPhotoAndCollectionAdapter(
     companion object {
         private const val PHOTO_CONSTANT = 1
         private const val COLLECTION_CONSTANT = 2
+        private const val NULL_CONSTANT = 3
     }
 }

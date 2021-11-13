@@ -14,17 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.unsplash.R
 import com.example.unsplash.adapters.PagingPhotoAndCollectionAdapter
-import com.example.unsplash.data.adapters.DatabaseCollectionAdapter
-import com.example.unsplash.data.adapters.DatabasePhotoAdapter
+import com.example.unsplash.dataBase.adapters.DatabaseCollectionAdapter
 import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.data.essences.collection.Collection
 import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.databinding.MyCollectionsFragmentLayoutBinding
 import com.example.unsplash.screens.main.tabs.profile_fragment.myLikesFragment.MyLikesFragmentDirections
-import com.example.unsplash.screens.main.tabs.profile_fragment.myPhotoFragment.MyPhotoFragment
 import com.skillbox.github.utils.autoCleared
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 
 class MyCollectionsFragment : Fragment(R.layout.my_collections_fragment_layout) {
@@ -47,6 +45,7 @@ class MyCollectionsFragment : Fragment(R.layout.my_collections_fragment_layout) 
         sharedPreferences.getString(PROFILE_USERNAME_KEY, null)?.let { username ->
             observeContent(username)
         }
+        initSwipe()
     }
 
     @ExperimentalPagingApi
@@ -54,17 +53,19 @@ class MyCollectionsFragment : Fragment(R.layout.my_collections_fragment_layout) 
         val databaseCollectionAdapter = DatabaseCollectionAdapter()
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.postsOfCollections(
+                /** Передаем урл в качестве маркера*/
                 makeUrl(username),
                 NUMBER_PHOTOS_ON_PAGE
-            ).map { pagingData ->
-                val data = pagingData.filter { databaseCollectionAdapter.fromDBCollectionToCollection(it.id) != null }
-                data.map { collectionDB ->
-                    databaseCollectionAdapter.fromDBCollectionToCollection(collectionDB.id) as PhotoAndCollection
+            ).mapNotNull{ pagingData ->
+                /** Каждый экземпляр, который получаем из базы данных, нам нужно превратить в
+                 * экземпляр обычного класса*/
+                pagingData.map { collectionDB ->
+                        databaseCollectionAdapter.fromDBCollectionToCollection(collectionDB.id) as PhotoAndCollection
+                    }
+                }.collectLatest { pagingData ->
+                    Log.d("UnsplashLoggingPaging", "Передача данных адаптеру ${pagingData}")
+                    myCollectionAdapter.submitData(pagingData)
                 }
-            }.collectLatest { pagingData ->
-                Log.d("UnsplashLoggingPaging", "Передача данных адаптеру ${pagingData}")
-                myCollectionAdapter.submitData(pagingData)
-            }
         }
     }
 
@@ -114,6 +115,13 @@ class MyCollectionsFragment : Fragment(R.layout.my_collections_fragment_layout) 
                 collection
             )
         findNavController().navigate(action)
+    }
+
+    private fun initSwipe() {
+//        binding.swipeRefreshLayoutId.setOnRefreshListener {
+//            myCollectionAdapter.refresh()
+//            binding.swipeRefreshLayoutId.isRefreshing = false
+//        }
     }
 
 

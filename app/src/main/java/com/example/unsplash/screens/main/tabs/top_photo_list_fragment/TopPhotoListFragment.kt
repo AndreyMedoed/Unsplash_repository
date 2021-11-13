@@ -2,6 +2,9 @@ package com.example.unsplash.screens.main.tabs.top_photo_list_fragment
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -14,7 +17,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.unsplash.R
 import com.example.unsplash.adapters.ListLoaderStateAdapter
 import com.example.unsplash.adapters.PagingPhotoAndCollectionAdapter
-import com.example.unsplash.data.adapters.DatabasePhotoAdapter
+import com.example.unsplash.dataBase.adapters.DatabasePhotoAdapter
 import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.databinding.TopPhotoListLayoutBinding
@@ -35,6 +38,7 @@ class TopPhotoListFragment : Fragment(R.layout.top_photo_list_layout) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     @ExperimentalPagingApi
@@ -42,6 +46,7 @@ class TopPhotoListFragment : Fragment(R.layout.top_photo_list_layout) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         observe()
+        initSwipe()
     }
 
 
@@ -51,10 +56,15 @@ class TopPhotoListFragment : Fragment(R.layout.top_photo_list_layout) {
         val databaseAdapter = DatabasePhotoAdapter()
 
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.postsOfPhotos(TOP_PHOTOS_MARKER, NUMBER_PHOTOS_ON_PAGE).map { pagingData ->
-                val data = pagingData.filter { databaseAdapter.fromDBPhotoToPhoto(it.id) != null }
-                data.map { photoDB ->
-                        databaseAdapter.fromDBPhotoToPhoto(photoDB.id) as PhotoAndCollection
+            viewModel.postsOfPhotos(
+                /** Передаем урл в качестве маркера*/
+                TOP_PHOTOS_MARKER,
+                NUMBER_PHOTOS_ON_PAGE
+            ).map { pagingData ->
+                /** Каждый экземпляр, который получаем из базы данных, нам нужно превратить в
+                 * экземпляр обычного класса*/
+                pagingData.map { photoDB ->
+                    databaseAdapter.fromDBPhotoToPhoto(photoDB.id) as PhotoAndCollection
                 }
             }.collectLatest { pagingData ->
                 Log.d("UnsplashLoggingPaging", "Передача данных адаптеру ${pagingData}")
@@ -103,6 +113,29 @@ class TopPhotoListFragment : Fragment(R.layout.top_photo_list_layout) {
             TopPhotoListFragmentDirections.actionTopPhotoListFragment2ToPhotoDetailFragment4(photo)
         findNavController().navigate(action)
     }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_photo_list_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.search_icon) {
+            val action =
+                TopPhotoListFragmentDirections.actionTopPhotoListFragment2ToSearchFragment()
+            findNavController().navigate(action)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun initSwipe() {
+        binding.swipeRefreshLayoutId.setOnRefreshListener {
+            adapter.refresh()
+            binding.swipeRefreshLayoutId.isRefreshing = false
+        }
+    }
+
 
     companion object {
         private const val NUMBER_PHOTOS_ON_PAGE = 25

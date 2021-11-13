@@ -13,15 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.unsplash.R
 import com.example.unsplash.adapters.PagingPhotoAndCollectionAdapter
-import com.example.unsplash.adapters.PhotoAndCollectionAdapter
-import com.example.unsplash.data.adapters.DatabaseCollectionAdapter
+import com.example.unsplash.dataBase.adapters.DatabaseCollectionAdapter
 import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.data.essences.collection.Collection
-import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.databinding.TopCollectionListLayoutBinding
-import com.example.unsplash.screens.main.tabs.profile_fragment.myCollectionsFragment.MyCollectionsFragmentDirections
-import com.example.unsplash.screens.main.tabs.profile_fragment.myLikesFragment.MyLikesFragmentDirections
-import com.example.unsplash.screens.splash.fragmens.top_collectionList_fragment.TopCollectionListFragmentViewModel
 import com.skillbox.github.utils.autoCleared
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
@@ -47,19 +42,13 @@ class TopCollectionListFragment : Fragment(R.layout.top_collection_list_layout) 
         val databaseCollectionAdapter = DatabaseCollectionAdapter()
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.postsOfCollections(
+                /** Передаем урл в качестве маркера*/
                 makeUrl(),
                 NUMBER_PHOTOS_ON_PAGE
             ).map { pagingData ->
-                val data =
-                    pagingData.filter {
-                        val bool =
-                            databaseCollectionAdapter.fromDBCollectionToCollection(it.id) != null
-                        if (!bool) {
-                            Log.d("UnsplashLoggingPaging", "ИЗ БД ПРИШЕЛ NULL")
-                        }
-                        bool
-                    }
-                data.map { collectionDB ->
+                /** Каждый экземпляр, который получаем из базы данных, нам нужно превратить в
+                 * экземпляр обычного класса*/
+                pagingData.map { collectionDB ->
                     databaseCollectionAdapter.fromDBCollectionToCollection(collectionDB.id) as PhotoAndCollection
                 }
             }.collectLatest { pagingData ->

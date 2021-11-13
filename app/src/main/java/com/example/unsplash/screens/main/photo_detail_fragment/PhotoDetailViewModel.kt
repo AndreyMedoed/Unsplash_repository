@@ -1,4 +1,4 @@
-package com.example.unsplash.screens.splash.fragmens.photo_detail_fragment
+package com.example.unsplash.screens.main.photo_detail_fragment
 
 import android.app.Application
 import android.net.Uri
@@ -11,15 +11,16 @@ import kotlinx.coroutines.launch
 class PhotoDetailViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = PhotoDetailRepository(application)
-    private var photoDetail: PhotoDetail? = null
     private val toastSingleLiveEvent = SingleLiveEvent<String>()
     val toastLiveData: LiveData<String>
         get() = toastSingleLiveEvent
 
     private val photoDetailMutableLiveData = MutableLiveData<PhotoDetail?>()
 
+
     val photoDetailLiveData: LiveData<PhotoDetail?>
         get() = photoDetailMutableLiveData
+
 
     fun setLike(photoId: String) {
         viewModelScope.launch {
@@ -50,4 +51,5 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
             }
         }
     }
+
 }

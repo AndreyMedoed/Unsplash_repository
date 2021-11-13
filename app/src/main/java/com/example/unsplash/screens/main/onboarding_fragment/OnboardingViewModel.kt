@@ -18,6 +18,7 @@ class OnboardingViewModel : ViewModel() {
     fun nextScene() {
         when (sceneState) {
             1 -> viewModelScope.launch {
+                /** Эта задержка нужно чтоб успеть проиграть анимацию с зелеными значком первую */
                 delay(1700)
                 sceneState++
                 changeSceneMutableLiveData.postValue(sceneState)

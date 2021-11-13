@@ -2,6 +2,7 @@ package com.example.unsplash.Network
 
 
 import com.example.unsplash.data.essences.PhotoAndCollection
+import com.example.unsplash.data.essences.SearchRecult
 import com.example.unsplash.data.essences.collection.Collection
 import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.data.essences.photo.photo_detail.PhotoDetail
@@ -96,5 +97,14 @@ interface UnsplashApi {
         @Query("per_page") pageSize: String? = "15",
         @Query("order_by") order_by: String? = null
     ): Response<List<Collection>>
+
+
+
+    @GET("/search/photos")
+    suspend fun searchPhotos(
+        @Query("query") query: String,
+        @Query("page") page: String? = null,
+        @Query("per_page") pageSize: String? = "25"
+    ): Response<SearchRecult>
 
 }

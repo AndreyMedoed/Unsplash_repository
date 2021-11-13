@@ -12,28 +12,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.bumptech.glide.Glide
 import com.example.unsplash.R
 import com.example.unsplash.adapters.PagingPhotoAndCollectionAdapter
-import com.example.unsplash.data.adapters.DatabaseCollectionAdapter
-import com.example.unsplash.data.adapters.DatabasePhotoAdapter
+import com.example.unsplash.dataBase.adapters.DatabasePhotoAdapter
 import com.example.unsplash.data.essences.PhotoAndCollection
-import com.example.unsplash.data.essences.collection.Collection
 import com.example.unsplash.data.essences.photo.Photo
-import com.example.unsplash.data.essences.user.Profile
-import com.example.unsplash.data.essences.user.User
-import com.example.unsplash.databinding.MyLikesFragmentLayoutBinding
-import com.example.unsplash.databinding.ProfileLayoutBinding
-import com.example.unsplash.screens.main.tabs.profile_fragment.myPhotoFragment.MyPhotoFragment
+import com.example.unsplash.databinding.PhotoListFragmentLayoutBinding
 import com.example.unsplash.screens.splash.fragmens.profile_fragment.myLikesFragment.MyLikesViewModel
 import com.skillbox.github.utils.autoCleared
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class MyLikesFragment : Fragment(R.layout.my_likes_fragment_layout) {
+class MyLikesFragment : Fragment(R.layout.photo_list_fragment_layout) {
 
-    private val binding: MyLikesFragmentLayoutBinding by viewBinding()
+    private val binding: PhotoListFragmentLayoutBinding by viewBinding()
     private val viewModel: MyLikesViewModel by viewModels()
     private var likedPhotoAdapter: PagingPhotoAndCollectionAdapter by autoCleared()
 
@@ -63,12 +56,13 @@ class MyLikesFragment : Fragment(R.layout.my_likes_fragment_layout) {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.postsOfPhotos(
+                /** Передаем урл в качестве маркера*/
                 makeUrl(username),
                 NUMBER_PHOTOS_ON_PAGE
             ).map { pagingData ->
-                val data =
-                    pagingData.filter { databasePhotoAdapter.fromDBPhotoToPhoto(it.id) != null }
-                data.map { photoDB ->
+                /** Каждый экземпляр, который получаем из базы данных, нам нужно превратить в
+                 * экземпляр обычного класса*/
+                pagingData.map { photoDB ->
                     Log.d("UnsplashLoggingPagingMy", "photoDB $photoDB")
                     databasePhotoAdapter.fromDBPhotoToPhoto(photoDB.id) as PhotoAndCollection
                 }
@@ -97,12 +91,6 @@ class MyLikesFragment : Fragment(R.layout.my_likes_fragment_layout) {
         }
     }
 
-    private fun initSwipe() {
-//        binding.swipeRefreshLayoutId.setOnRefreshListener {
-//            likedPhotoAdapter.refresh()
-//            binding.swipeRefreshLayoutId.isRefreshing = false
-//        }
-    }
 
     private fun makeUrl(username: String?): String {
         val path = LIKED_PHOTOS_MARKER_START + username + LIKED_PHOTOS_MARKER_END
@@ -122,6 +110,13 @@ class MyLikesFragment : Fragment(R.layout.my_likes_fragment_layout) {
     private fun openPhotoDetail(photo: Photo) {
         val action = MyLikesFragmentDirections.actionMyLikesFragmentToPhotoDetailFragment2(photo)
         findNavController().navigate(action)
+    }
+
+    private fun initSwipe() {
+//        binding.swipeRefreshLayoutId.setOnRefreshListener {
+//            likedPhotoAdapter.refresh()
+//            binding.swipeRefreshLayoutId.isRefreshing = false
+//        }
     }
 
 

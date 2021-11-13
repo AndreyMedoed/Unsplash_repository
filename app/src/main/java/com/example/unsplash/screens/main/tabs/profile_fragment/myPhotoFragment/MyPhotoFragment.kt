@@ -14,20 +14,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.unsplash.R
 import com.example.unsplash.adapters.PagingPhotoAndCollectionAdapter
-import com.example.unsplash.data.adapters.DatabasePhotoAdapter
+import com.example.unsplash.dataBase.adapters.DatabasePhotoAdapter
 import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.data.essences.photo.Photo
-import com.example.unsplash.databinding.MyPhotoFragmentLayoutBinding
-import com.example.unsplash.screens.main.tabs.profile_fragment.myLikesFragment.MyLikesFragment
+import com.example.unsplash.databinding.PhotoListFragmentLayoutBinding
 import com.example.unsplash.screens.splash.fragmens.profile_fragment.myPhotoFragment.MyPhotoViewModel
 import com.skillbox.github.utils.autoCleared
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class MyPhotoFragment : Fragment(R.layout.my_photo_fragment_layout) {
+class MyPhotoFragment : Fragment(R.layout.photo_list_fragment_layout) {
 
-    private val binding: MyPhotoFragmentLayoutBinding by viewBinding()
+    private val binding: PhotoListFragmentLayoutBinding by viewBinding()
     private val viewModel: MyPhotoViewModel by viewModels()
     private var myPhotoAdapter: PagingPhotoAndCollectionAdapter by autoCleared()
 
@@ -46,6 +45,7 @@ class MyPhotoFragment : Fragment(R.layout.my_photo_fragment_layout) {
         sharedPreferences.getString(PROFILE_USERNAME_KEY, null)?.let { username ->
             observeContent(username)
         }
+        initSwipe()
     }
 
     @ExperimentalPagingApi
@@ -55,11 +55,13 @@ class MyPhotoFragment : Fragment(R.layout.my_photo_fragment_layout) {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.postsOfPhotos(
+                /** Передаем урл в качестве маркера*/
                 makeUrl(username),
                 NUMBER_PHOTOS_ON_PAGE
             ).map { pagingData ->
-                val data = pagingData.filter { databasePhotoAdapter.fromDBPhotoToPhoto(it.id) != null }
-                data.map { photoDB ->
+                /** Каждый экземпляр, который получаем из базы данных, нам нужно превратить в
+                 * экземпляр обычного класса*/
+                pagingData.map { photoDB ->
                     databasePhotoAdapter.fromDBPhotoToPhoto(photoDB.id) as PhotoAndCollection
                 }
             }.collectLatest { pagingData ->
@@ -106,6 +108,13 @@ class MyPhotoFragment : Fragment(R.layout.my_photo_fragment_layout) {
     private fun openPhotoDetail(photo: Photo) {
         val action = MyPhotoFragmentDirections.actionMyPhotoFragmentToPhotoDetailFragment(photo)
         findNavController().navigate(action)
+    }
+
+    private fun initSwipe() {
+//        binding.swipeRefreshLayoutId.setOnRefreshListener {
+//            myPhotoAdapter.refresh()
+//            binding.swipeRefreshLayoutId.isRefreshing = false
+//        }
     }
 
 
