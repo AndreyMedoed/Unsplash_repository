@@ -54,7 +54,6 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 loadingMutableLiveData.postValue(false)
                 toastLiveEvent.postValue(R.string.auth_canceled)
                 Log.d("UnsplashLogging", "in onAuthCodeReceived ${ex?.stackTraceToString()}")
-
             }
         )
     }

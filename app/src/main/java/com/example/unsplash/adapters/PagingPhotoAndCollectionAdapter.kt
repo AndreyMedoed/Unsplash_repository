@@ -119,7 +119,7 @@ class PagingPhotoAndCollectionAdapter(
                 openPhotoDetails(photo)
             }
 
-            binding.fullnameTextViewId.text = "${photo.user?.first_name} ${photo.user?.last_name}"
+            binding.fullnameTextViewId.text = "${photo.user?.first_name} ${photo.user?.last_name ?: ""}"
             binding.usernameTextViewId.text = photo.user?.username
             binding.likeNumberTextViewId.text = photo.likes?.toString()
 

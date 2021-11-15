@@ -73,7 +73,7 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
 
     private fun bindPhoto(photo: Photo) {
 
-        binding.fullnameTextViewId.text = "${photo.user?.first_name} ${photo.user?.last_name}"
+        binding.fullnameTextViewId.text = "${photo.user?.first_name} ${photo.user?.last_name ?: ""}"
         binding.usernameTextViewId.text = photo.user?.username
         binding.usernameTextView2Id.text = "${photo.user?.username}:"
         binding.likeNumberTextViewId.text = photo.likes?.toString()
@@ -138,7 +138,7 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
         binding.apertureTextViewId.text = photoDetail.exif?.aperture ?: "-"
         binding.focalLengthTextViewId.text = photoDetail.exif?.focal_length ?: "-"
         binding.isoTextViewId.text = photoDetail.exif?.iso?.toString() ?: "-"
-        binding.descriptionTextViewId.text = photoDetail.description
+        binding.descriptionTextViewId.text = photoDetail.description ?: "-"
         binding.downloadsNumberId.text = "(${photoDetail.downloads?.toString()})"
         binding.locationTextViewId.setOnClickListener {
             goToMap(

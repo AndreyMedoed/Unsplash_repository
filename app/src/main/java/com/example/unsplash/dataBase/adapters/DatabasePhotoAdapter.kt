@@ -1,6 +1,6 @@
 package com.example.unsplash.dataBase.adapters
 
-import com.example.roomdao.dataBase.Database
+import com.example.unsplash.dataBase.Database
 import com.example.unsplash.data.essences.photo.Downloads
 import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.data.essences.photo.Statistics

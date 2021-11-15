@@ -3,11 +3,10 @@ package com.example.unsplash.screens.splash.fragmens.top_collectionList_fragment
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.example.roomdao.dataBase.Database
-import com.example.unsplash.data.essences.collection.Collection
+import com.example.unsplash.dataBase.Database
 import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.paging.CollectionRemoteMediator
-import com.skillbox.github.data.NetworkConfig
+import com.example.unsplash.Network.NetworkConfig
 
 class TopCollectionListRepository {
     private val collectionDao = Database.instance.collectionDao()

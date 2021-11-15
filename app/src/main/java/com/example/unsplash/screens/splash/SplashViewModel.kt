@@ -1,10 +1,8 @@
-package ua.cn.stu.navcomponent.tabs.screens.splash
+package com.example.unsplash.screens.splash
 
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.*
-import com.example.unsplash.screens.splash.SplashFragment
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -15,6 +13,8 @@ class SplashViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
+    private val repository = SplashRepository(application)
+
     private val sharedPreferences by lazy {
         application.getSharedPreferences(
             SHARED_PREFERENCE_NAME_PROFILE,
@@ -22,14 +22,15 @@ class SplashViewModel(
         )
     }
 
-    private val _launchMainScreenMutableLiveData = MutableLiveData<Boolean>()
-    val launchMainScreenEvent: LiveData<Boolean>
+    private val _launchMainScreenMutableLiveData = MutableLiveData<Pair<Boolean, Boolean>>()
+    val launchMainScreenEvent: LiveData<Pair<Boolean, Boolean>>
         get() = _launchMainScreenMutableLiveData
 
     init {
         viewModelScope.launch {
-            val isShown = sharedPreferences.getBoolean(ON_BOARDING_IS_SHOWN, false)
-            _launchMainScreenMutableLiveData.postValue(isShown)
+            val isShownOnboarding = sharedPreferences.getBoolean(ON_BOARDING_IS_SHOWN, false)
+            val isTokenNotOutdated = repository.checkToken()
+            _launchMainScreenMutableLiveData.postValue(Pair(isShownOnboarding, isTokenNotOutdated))
         }
     }
 

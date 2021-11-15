@@ -16,7 +16,10 @@
         android:label="activity_main"
         tools:layout="@layout/activity_main" >
         <argument
-            android:name="isSignedIn"
+            android:name="isShown"
+            app:argType="boolean" />
+        <argument
+            android:name="isTokenNotOutdated"
             app:argType="boolean" />
     </activity>
 </navigation>

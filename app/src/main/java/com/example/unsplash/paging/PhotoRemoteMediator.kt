@@ -7,7 +7,7 @@ import androidx.paging.LoadType.*
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.example.roomdao.dataBase.Database
+import com.example.unsplash.dataBase.Database
 import com.example.unsplash.Network.UnsplashApi
 import com.example.unsplash.dataBase.adapters.DatabasePhotoAdapter
 import com.example.unsplash.dataBase.dataBaseEssences.PhotoDB

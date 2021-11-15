@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         // preparing root nav controller
         val navController = getRootNavController()
-        prepareRootNavController(isShown(), navController)
+        prepareRootNavController(isShown(), isTokenNotOutdated(), navController)
         onNavControllerActivated(navController)
 
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
@@ -98,11 +98,19 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean =
         (navController?.navigateUp() ?: false) || super.onSupportNavigateUp()
 
-    private fun prepareRootNavController(isShown: Boolean, navController: NavController) {
+    private fun prepareRootNavController(
+        isShown: Boolean,
+        isTokenNotOutdated: Boolean,
+        navController: NavController
+    ) {
         val graph = navController.navInflater.inflate(getMainNavigationGraphId())
         graph.setStartDestination(
             if (isShown) {
-                getSignInDestination()
+                if (isTokenNotOutdated) {
+                    getTabsDestination()
+                } else {
+                    getSignInDestination()
+                }
             } else {
                 getOnBoardingDestination()
             }
@@ -162,7 +170,13 @@ class MainActivity : AppCompatActivity() {
     private fun isShown(): Boolean {
         val bundle = intent.extras ?: throw IllegalStateException("No required arguments")
         val args = MainActivityArgs.fromBundle(bundle)
-        return args.isSignedIn
+        return args.isShown
+    }
+
+    private fun isTokenNotOutdated(): Boolean {
+        val bundle = intent.extras ?: throw IllegalStateException("No required arguments")
+        val args = MainActivityArgs.fromBundle(bundle)
+        return args.isTokenNotOutdated
     }
 
     private fun getMainNavigationGraphId(): Int = R.navigation.main_graph
@@ -173,8 +187,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getOnBoardingDestination(): Int = R.id.onboadingFragment2
 
-
-    fun showSnackBar(uri: Uri) {
+    private fun showSnackBar(uri: Uri) {
         Log.d("ProcessLog", "showSnackBar in MainActivity")
         Snackbar.make(
             binding.fragmentContainer,

@@ -2,11 +2,18 @@ package com.example.unsplash.screens.main.authorization_fragment_
 
 import android.net.Uri
 import android.util.Log
-import com.skillbox.github.data.NetworkConfig
+import com.example.unsplash.data.essences.Token
+import com.example.unsplash.dataBase.Database
+import com.example.unsplash.screens.splash.fragmens.authorization_fragment_.AuthFragment
+import com.example.unsplash.Network.NetworkConfig
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import net.openid.appauth.*
 
 class AuthRepository {
-
+    private val tokenDao = Database.instance.tokenDao()
+    private val coroutine = CoroutineScope(Dispatchers.IO)
 
     fun getAuthRequest(): AuthorizationRequest {
         val serviceConfiguration = AuthorizationServiceConfiguration(
@@ -39,6 +46,10 @@ class AuthRepository {
                 response != null -> {
                     val accessToken = response.accessToken.orEmpty()
                     NetworkConfig.token = accessToken
+
+                    coroutine.launch {
+                        tokenDao.insert(Token(AuthFragment.TOKEN_MARKER, accessToken))
+                    }
                     Log.d("UnsplashLogging", "accessToken$accessToken")
                     onComplete()
                 }
@@ -46,7 +57,6 @@ class AuthRepository {
             }
         }
     }
-
 
     private fun getClientAuthentication(): ClientAuthentication {
         return ClientSecretPost(NetworkConfig.CLIENT_SECRET)

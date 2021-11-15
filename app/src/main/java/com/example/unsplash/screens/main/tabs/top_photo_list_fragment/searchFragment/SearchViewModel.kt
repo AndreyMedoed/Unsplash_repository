@@ -1,21 +1,16 @@
 package com.example.unsplash.screens.main.tabs.top_photo_list_fragment.searchFragment
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import com.example.unsplash.data.essences.PhotoAndCollection
-import com.example.unsplash.data.essences.photo.Photo
-import com.example.unsplash.dataBase.dataBaseEssences.PhotoDB
 import com.example.unsplash.paging.PhotoPagingSource
-import com.skillbox.github.data.NetworkConfig
+import com.example.unsplash.Network.NetworkConfig
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 class SearchViewModel : ViewModel() {
 

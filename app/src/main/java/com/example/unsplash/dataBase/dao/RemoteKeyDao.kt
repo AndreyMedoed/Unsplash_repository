@@ -20,6 +20,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.unsplash.dataBase.contracts.RemoteKeyContract
 import com.example.unsplash.dataBase.dataBaseEssences.remoteKeys.RemoteKey
 
 @Dao
@@ -27,9 +28,9 @@ interface RemoteKeyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(keys: RemoteKey)
 
-    @Query("SELECT * FROM remote_keys WHERE marker = :marker")
+    @Query("SELECT * FROM ${RemoteKeyContract.TABLE_NAME} WHERE ${RemoteKeyContract.Columns.MARKER} = :marker")
     suspend fun remoteKeyByMarker(marker: String): RemoteKey?
 
-    @Query("DELETE FROM remote_keys WHERE marker = :marker")
+    @Query("DELETE FROM ${RemoteKeyContract.TABLE_NAME} WHERE ${RemoteKeyContract.Columns.MARKER} = :marker")
     suspend fun deleteByMarker(marker: String)
 }

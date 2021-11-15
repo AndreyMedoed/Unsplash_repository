@@ -1,11 +1,9 @@
 package com.example.unsplash.screens.main.tabs.top_photo_list_fragment.searchFragment
 
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.example.roomdao.dataBase.Database
 import com.example.unsplash.paging.PhotoPagingSource
-import com.skillbox.github.data.NetworkConfig
+import com.example.unsplash.Network.NetworkConfig
 
 class SearchRepository {
 

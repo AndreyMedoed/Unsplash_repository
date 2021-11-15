@@ -1,12 +1,10 @@
-package com.example.roomdao.dataBase
+package com.example.unsplash.dataBase
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.roomdao.dataBase.dao.*
-import com.example.unsplash.dataBase.dao.PhotoDao
-import com.example.unsplash.dataBase.dao.RemoteKeyDao
-import com.example.unsplash.dataBase.dao.PhotoUrlDao
-import com.example.unsplash.dataBase.dao.ProfileDao
+import com.example.unsplash.data.essences.Token
+import com.example.unsplash.dataBase.dao.*
 import com.example.unsplash.dataBase.dataBaseEssences.*
 import com.example.unsplash.dataBase.dataBaseEssences.remoteKeys.RemoteKey
 
@@ -21,7 +19,8 @@ import com.example.unsplash.dataBase.dataBaseEssences.remoteKeys.RemoteKey
         ProfileImageDB::class,
         UserDB::class,
         UserLinksDB::class,
-        RemoteKey::class],
+        RemoteKey::class,
+        Token::class],
     version = AppDatabase.DB_VERSION
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -35,9 +34,10 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun userLinksDao(): UserLinksDao
     abstract fun photoRemoteKeyDao(): RemoteKeyDao
+    abstract fun tokenDao(): TokenDao
 
     companion object {
         const val DB_VERSION = 1
-        const val DB_NAME = "database_name"
+        const val DB_NAME = "Unsplash_database"
     }
 }

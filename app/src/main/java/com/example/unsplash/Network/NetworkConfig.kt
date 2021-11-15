@@ -1,6 +1,5 @@
-package com.skillbox.github.data
+package com.example.unsplash.Network
 
-import com.example.unsplash.Network.UnsplashApi
 import com.skillbox.github.utils.CustomInterceptor
 import net.openid.appauth.ResponseTypeValues
 import okhttp3.OkHttpClient

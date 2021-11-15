@@ -3,7 +3,7 @@ package com.example.unsplash
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.unsplash.screens.splash.SplashFragment
-import ua.cn.stu.navcomponent.tabs.screens.splash.SplashViewModel
+import com.example.unsplash.screens.splash.SplashViewModel
 
 /**
  * Entry point of the app.

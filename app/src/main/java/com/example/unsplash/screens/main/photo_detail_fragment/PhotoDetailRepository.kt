@@ -2,36 +2,19 @@ package com.example.unsplash.screens.main.photo_detail_fragment
 
 import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ProcessLifecycleOwner
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.*
-import com.bumptech.glide.Glide
-import com.example.unsplash.Notifications.NotificationChannels
 import com.example.unsplash.screens.main.photo_detail_fragment.worker.DownloadWorker
 import com.example.unsplash.data.essences.photo.photo_detail.PhotoDetail
-import com.example.unsplash.screens.main.MainActivity
-import com.example.unsplash.utils.SingleLiveEvent
-import com.skillbox.github.data.NetworkConfig
+import com.example.unsplash.Network.NetworkConfig
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.trySendBlocking
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.emptyFlow
-import java.util.concurrent.Flow
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
-import kotlin.random.Random
 
 class PhotoDetailRepository(private val context: Context) {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)

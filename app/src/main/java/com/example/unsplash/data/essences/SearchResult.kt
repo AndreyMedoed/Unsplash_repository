@@ -9,7 +9,7 @@ import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 
 @JsonClass(generateAdapter = true)
-data class SearchRecult(
+data class SearchResult(
     @Json(name = "total")
     val total: String,
     @Json(name = "total_pages")

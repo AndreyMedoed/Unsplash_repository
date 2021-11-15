@@ -73,5 +73,6 @@ class AuthFragment : Fragment(R.layout.authorization_layout) {
 
     companion object {
         private const val AUTH_REQUEST_CODE = 342
+        const val TOKEN_MARKER = "1"
     }
 }

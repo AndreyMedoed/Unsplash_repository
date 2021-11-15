@@ -4,7 +4,7 @@ package com.example.unsplash.screens.main.tabs.profile_fragment
 import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.data.essences.user.Profile
 import com.example.unsplash.data.essences.user.User
-import com.skillbox.github.data.NetworkConfig
+import com.example.unsplash.Network.NetworkConfig
 
 class ProfileRepository {
 

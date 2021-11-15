@@ -1,4 +1,4 @@
-package com.example.roomdao.dataBase
+package com.example.unsplash.dataBase
 
 import android.content.Context
 import androidx.room.Room
