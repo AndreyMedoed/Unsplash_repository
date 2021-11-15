@@ -23,6 +23,9 @@
         android:label="fragment_tabs"
         tools:layout="@layout/fragment_tabs">
 
+        <action
+            android:id="@+id/action_tabsFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
 
     <fragment

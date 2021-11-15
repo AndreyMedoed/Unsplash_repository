@@ -44,4 +44,10 @@ class ProfileViewModel : ViewModel() {
             repository.deleteLike(photoId)
         }
     }
+
+    fun clearAllDatabase() {
+        viewModelScope.launch {
+            repository.clearAllDatabase()
+        }
+    }
 }

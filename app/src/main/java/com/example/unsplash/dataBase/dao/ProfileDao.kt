@@ -17,5 +17,7 @@ interface ProfileDao {
     @Query("SELECT * FROM ${ProfileContract.TABLE_NAME} WHERE ${ProfileContract.Columns.ID} =:id")
     suspend fun getProfileById(id: String): ProfileDB?
 
+    @Query("DELETE FROM ${ProfileContract.TABLE_NAME}")
+    fun clearAll()
 
 }

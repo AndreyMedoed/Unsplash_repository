@@ -22,7 +22,7 @@ class PhotoRemoteMediator(
     private val marker: String,
     private val pageSize: Int
 ) : RemoteMediator<Int, PhotoDB>() {
-    private val remoteKeyDao = db.instance.photoRemoteKeyDao()
+    private val remoteKeyDao = db.instance.remoteKeyDao()
 
     override suspend fun initialize(): InitializeAction {
         // Require that remote REFRESH is launched on initial load and succeeds before launching

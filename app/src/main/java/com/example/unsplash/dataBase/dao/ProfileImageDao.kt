@@ -1,6 +1,7 @@
 package com.example.roomdao.dataBase.dao
 
 import androidx.room.*
+import com.example.unsplash.data.contracts.CollectionContract
 import com.example.unsplash.data.contracts.ProfileImageContract
 import com.example.unsplash.dataBase.dataBaseEssences.ProfileImageDB
 import retrofit2.http.DELETE
@@ -19,12 +20,8 @@ interface ProfileImageDao {
     suspend fun getProfileImageById(id: Long): ProfileImageDB?
 
 
-   /* @Delete
-    suspend fun deleteUserByUser(user: User)
-
-
-    @Update
-    suspend fun update(user: User)*/
+    @Query("DELETE FROM ${ProfileImageContract.TABLE_NAME}")
+    fun clearAll()
 
 
 

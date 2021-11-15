@@ -33,7 +33,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun profileImageDao(): ProfileImageDao
     abstract fun userDao(): UserDao
     abstract fun userLinksDao(): UserLinksDao
-    abstract fun photoRemoteKeyDao(): RemoteKeyDao
+    abstract fun remoteKeyDao(): RemoteKeyDao
     abstract fun tokenDao(): TokenDao
 
     companion object {

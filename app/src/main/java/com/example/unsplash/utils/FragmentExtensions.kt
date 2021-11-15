@@ -7,6 +7,10 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import com.example.unsplash.R
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.channels.trySendBlocking
@@ -59,4 +63,9 @@ fun SearchView.searchTextChangedFlow(): Flow<String> {
             this@searchTextChangedFlow.setOnQueryTextListener(null)
         }
     }
+}
+
+fun Fragment.findTopNavController(): NavController {
+    val topLevelHost = requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment?
+    return topLevelHost?.navController ?: findNavController()
 }

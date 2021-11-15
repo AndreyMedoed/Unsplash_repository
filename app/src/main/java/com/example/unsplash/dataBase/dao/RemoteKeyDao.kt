@@ -20,6 +20,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.unsplash.data.contracts.CollectionContract
 import com.example.unsplash.dataBase.contracts.RemoteKeyContract
 import com.example.unsplash.dataBase.dataBaseEssences.remoteKeys.RemoteKey
 
@@ -33,4 +34,7 @@ interface RemoteKeyDao {
 
     @Query("DELETE FROM ${RemoteKeyContract.TABLE_NAME} WHERE ${RemoteKeyContract.Columns.MARKER} = :marker")
     suspend fun deleteByMarker(marker: String)
+
+    @Query("DELETE FROM ${RemoteKeyContract.TABLE_NAME}")
+    fun clearAll()
 }

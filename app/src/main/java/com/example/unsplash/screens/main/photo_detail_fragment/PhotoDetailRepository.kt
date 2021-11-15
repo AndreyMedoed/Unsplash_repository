@@ -11,6 +11,7 @@ import androidx.work.*
 import com.example.unsplash.screens.main.photo_detail_fragment.worker.DownloadWorker
 import com.example.unsplash.data.essences.photo.photo_detail.PhotoDetail
 import com.example.unsplash.Network.NetworkConfig
+import com.example.unsplash.dataBase.Database
 import kotlinx.coroutines.*
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
@@ -119,7 +120,6 @@ class PhotoDetailRepository(private val context: Context) {
             .enqueueUniqueWork(DOWNLOAD_WORK_ID, ExistingWorkPolicy.KEEP, workRequest)
 
     }
-
 
 
     companion object {

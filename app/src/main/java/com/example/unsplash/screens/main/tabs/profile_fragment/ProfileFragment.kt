@@ -1,12 +1,20 @@
 package com.example.unsplash.screens.main.tabs.profile_fragment
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.navigation.ui.NavigationUI
 import androidx.paging.ExperimentalPagingApi
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -15,7 +23,9 @@ import com.example.unsplash.R
 import com.example.unsplash.data.essences.user.Profile
 import com.example.unsplash.data.essences.user.User
 import com.example.unsplash.databinding.ProfileLayoutBinding
+import com.example.unsplash.screens.main.tabs.TabsFragmentDirections
 import com.example.unsplash.screens.splash.fragmens.profile_fragment.ProfileViewModel
+import com.example.unsplash.utils.findTopNavController
 
 class ProfileFragment : Fragment(R.layout.profile_layout) {
 
@@ -29,12 +39,45 @@ class ProfileFragment : Fragment(R.layout.profile_layout) {
         )
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observe()
         getMyProfile()
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.profile_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.exit_item_id) {
+            showAlertDialog()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun showAlertDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Выход")
+            .setMessage("Вы уверены, что хотите выйти? Все локальные данные будут удалены.")
+            .setNegativeButton("НЕТ") { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton("Да") { _, _ -> exit() }
+            .show()
+    }
+
+    private fun exit() {
+        viewModel.clearAllDatabase()
+        findTopNavController().navigate(R.id.signInFragment, null, navOptions {
+            popUpTo(R.id.tabsFragment) {
+                inclusive = true
+            }
+        })
     }
 
     private fun initBottomNavigationView() {

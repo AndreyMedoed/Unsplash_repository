@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.unsplash.data.contracts.CollectionContract
 import com.example.unsplash.data.contracts.PhotoContract
 import com.example.unsplash.data.contracts.PhotoUrlContract
 import com.example.unsplash.dataBase.dataBaseEssences.PhotoDB
@@ -29,4 +30,6 @@ interface PhotoDao {
     @Query("DELETE FROM ${PhotoContract.TABLE_NAME} WHERE mark = :marker")
     suspend fun deleteByMarker(marker: String)
 
+    @Query("DELETE FROM ${PhotoContract.TABLE_NAME}")
+    fun clearAll()
 }

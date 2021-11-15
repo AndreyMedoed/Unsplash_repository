@@ -26,7 +26,7 @@ class CollectionRemoteMediator(
     private val pageSize: Int
 ) : RemoteMediator<Int, CollectionDB>() {
     private val collectionDao = db.instance.collectionDao()
-    private val remoteKeyDao = db.instance.photoRemoteKeyDao()
+    private val remoteKeyDao = db.instance.remoteKeyDao()
 
     override suspend fun initialize(): InitializeAction {
         // Require that remote REFRESH is launched on initial load and succeeds before launching

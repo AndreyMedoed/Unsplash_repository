@@ -1,6 +1,7 @@
 package com.example.roomdao.dataBase.dao
 
 import androidx.room.*
+import com.example.unsplash.data.contracts.CollectionContract
 import com.example.unsplash.data.contracts.ProfileImageContract
 import com.example.unsplash.data.contracts.UserLinksContract
 import com.example.unsplash.dataBase.dataBaseEssences.ProfileImageDB
@@ -20,4 +21,6 @@ interface UserLinksDao {
     @Query("SELECT * FROM ${UserLinksContract.TABLE_NAME} WHERE ${UserLinksContract.Columns.ID} =:id")
     suspend fun getUserLinksById(id: Long): UserLinksDB?
 
+    @Query("DELETE FROM ${UserLinksContract.TABLE_NAME}")
+    fun clearAll()
 }
