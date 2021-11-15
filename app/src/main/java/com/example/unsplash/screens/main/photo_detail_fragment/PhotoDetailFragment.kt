@@ -8,6 +8,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -16,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.airbnb.lottie.LottieAnimationView
@@ -26,6 +30,7 @@ import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.data.essences.photo.photo_detail.PhotoDetail
 import com.example.unsplash.databinding.PhotoDetailLayoutBinding
 import com.example.unsplash.screens.main.MainActivity
+import com.example.unsplash.screens.main.tabs.top_photo_list_fragment.TopPhotoListFragmentDirections
 
 class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
 
@@ -45,6 +50,7 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
         super.onCreate(savedInstanceState)
         initPermissionResultListener()
         initSelectDocumentFolderLauncher()
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,10 +61,31 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
         getPhotoDetail()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.photo_detail_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.share_item_id) {
+            share()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun share() {
+        val shareIntent = Intent().apply {
+            this.action = Intent.ACTION_SEND
+            this.putExtra(Intent.EXTRA_TEXT, args.photo.urls?.raw)
+            this.type = "text/plain"
+        }
+        startActivity(shareIntent)
+    }
+
+
     private fun getPhotoDetail() {
         viewModel.getPhotoDetail(args.photo.id)
     }
-
 
     private fun observe() {
         viewModel.photoDetailLiveData.observe(viewLifecycleOwner) {
@@ -69,7 +96,6 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
     }
-
 
     private fun bindPhoto(photo: Photo) {
 
