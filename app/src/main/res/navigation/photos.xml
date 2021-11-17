@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/topPhotoListFragment2"
         android:name="com.example.unsplash.screens.main.tabs.top_photo_list_fragment.TopPhotoListFragment"
-        android:label="TopPhotoListFragment"
+        android:label="Топ фото"
         tools:layout="@layout/top_photo_list_layout">
         <action
             android:id="@+id/action_topPhotoListFragment2_to_photoDetailFragment4"
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/photoDetailFragment4"
         android:name="com.example.unsplash.screens.main.photo_detail_fragment.PhotoDetailFragment"
-        android:label="PhotoDetailFragment"
+        android:label="Фото"
         tools:layout="@layout/photo_detail_layout" >
         <argument
             android:name="photo"
@@ -30,7 +30,7 @@
         android:id="@+id/searchFragment"
         tools:layout="@layout/photo_list_fragment_layout"
         android:name="com.example.unsplash.screens.main.tabs.top_photo_list_fragment.searchFragment.SearchFragment"
-        android:label="SearchFragment" >
+        android:label="Поиск" >
         <action
             android:id="@+id/action_searchFragment_to_photoDetailFragment4"
             app:destination="@id/photoDetailFragment4" />

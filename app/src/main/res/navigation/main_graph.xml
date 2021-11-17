@@ -7,8 +7,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.unsplash.screens.splash.fragmens.authorization_fragment_.AuthFragment"
-        android:label="screen_sign_in"
+        android:name="com.example.unsplash.screens.main.authorization_fragment_.AuthFragment"
         tools:layout="@layout/authorization_layout">
         <action
             android:id="@+id/action_signInFragment_to_tabsFragment"
@@ -20,9 +19,8 @@
     <fragment
         android:id="@+id/tabsFragment"
         android:name="com.example.unsplash.screens.main.tabs.TabsFragment"
-        android:label="fragment_tabs"
+        android:label="Unsplash"
         tools:layout="@layout/fragment_tabs">
-
         <action
             android:id="@+id/action_tabsFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
@@ -30,8 +28,7 @@
 
     <fragment
         android:id="@+id/onboadingFragment2"
-        android:name="com.example.unsplash.screens.splash.fragmens.onboarding_fragment.OnboadingFragment"
-        android:label="OnboadingFragment"
+        android:name="com.example.unsplash.screens.main.onboarding_fragment.OnboadingFragment"
         tools:layout="@layout/onboarding_layout">
         <action
             android:id="@+id/action_onboadingFragment2_to_signInFragment"

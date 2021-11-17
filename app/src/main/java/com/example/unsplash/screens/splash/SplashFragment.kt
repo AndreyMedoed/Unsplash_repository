@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import com.example.unsplash.screens.main.MainActivity
 import com.example.unsplash.R
 import com.example.unsplash.databinding.FragmentSplashBinding
-import ua.cn.stu.navcomponent.tabs.screens.main.MainActivityArgs
+import com.example.unsplash.screens.main.MainActivityArgs
 
 class SplashFragment : Fragment(R.layout.fragment_splash) {
 

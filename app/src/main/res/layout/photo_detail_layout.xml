@@ -10,9 +10,11 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@id/downloadMaterialCardView_Id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/downloadLinearLayout_Id"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -366,44 +368,56 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <LinearLayout
-        android:id="@+id/downloadLinearLayout_Id"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/downloadMaterialCardView_Id"
         android:layout_width="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
+        app:cardCornerRadius="20dp"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-            android:id="@+id/textButton_Download"
-            style="@style/customTextButtonStyleOnDetailPhotoLight"
-            android:text="@string/download_button"
-            app:layout_constraintBottom_toBottomOf="@+id/downIcon_Id"
-            app:layout_constraintEnd_toStartOf="@+id/downloads_Number_Id"
-            app:layout_constraintTop_toTopOf="@+id/downIcon_Id" />
-
-        <TextView
-            android:id="@+id/downloads_Number_Id"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceBody2"
-            app:layout_constraintBottom_toBottomOf="@+id/downIcon_Id"
-            app:layout_constraintEnd_toStartOf="@+id/downIcon_Id"
-            app:layout_constraintTop_toTopOf="@+id/downIcon_Id"
-            tools:text="(124)" />
-
-        <ImageView
-            android:id="@+id/downIcon_Id"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_vertical_align_bottom"
+            android:elevation="20dp"
+            android:background="@color/white"
+            android:gravity="center_vertical|end"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description_TextView_id" />
+            app:layout_constraintEnd_toEndOf="parent">
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/textButton_Download"
+                style="@style/customTextButtonStyleOnDetailPhotoLight"
+                android:text="@string/download_button"
+                app:layout_constraintBottom_toBottomOf="@+id/downIcon_Id"
+                app:layout_constraintEnd_toStartOf="@+id/downloads_Number_Id"
+                app:layout_constraintTop_toTopOf="@+id/downIcon_Id" />
+
+            <TextView
+                android:id="@+id/downloads_Number_Id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:layout_constraintBottom_toBottomOf="@+id/downIcon_Id"
+                app:layout_constraintEnd_toStartOf="@+id/downIcon_Id"
+                app:layout_constraintTop_toTopOf="@+id/downIcon_Id"
+                tools:text="(124)" />
+
+            <ImageView
+                android:id="@+id/downIcon_Id"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_vertical_align_bottom"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description_TextView_id" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

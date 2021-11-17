@@ -1,5 +1,6 @@
 package com.example.unsplash.screens.main.photo_detail_fragment.worker
 
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -31,17 +32,17 @@ class DownloadWorker(
         val uri = Uri.parse(uriString)
 
         url?.let {
-            val result = repository.savePhoto(name ?: "", url, uri)
-            if (result == PhotoDetailRepository.FAILURE_INTERNET_MESSAGE) {
+            val resultUri = repository.savePhoto(name ?: "", url, uri)
+            if (resultUri == PhotoDetailRepository.FAILURE_INTERNET_MESSAGE) {
                 Log.d("UnsplashLogging", "Ошибка сети")
                 return Result.retry()
             }
-            if (result == PhotoDetailRepository.FAILURE_EXTERNAL_STORAGE_MESSAGE) {
+            if (resultUri == PhotoDetailRepository.FAILURE_EXTERNAL_STORAGE_MESSAGE) {
                 Log.d("UnsplashLogging", "Внешнее хранилище недоступно")
                 return Result.failure()
             }
 
-            notifyUser(url, uri)
+            notifyUser(url, Uri.parse(resultUri))
 
             return Result.success()
         }
@@ -77,14 +78,14 @@ class DownloadWorker(
             }
             else -> {
                 Log.d("ProcessLog", "SHOW_NOTIFICATION")
-                showNewsMessageNotification(imageUrl)
+                showNewsMessageNotification(imageUrl, imageUri)
             }
         }
     }
 
-    private fun showNewsMessageNotification(imageUrl: String?) {
+    private fun showNewsMessageNotification(imageUrl: String?, imageUri: Uri) {
 
-        val notificationBuilder = getNewsNotificationBuilder()
+        val notificationBuilder = getNewsNotificationBuilder(imageUri)
         val notification = if (imageUrl != null) {
             try {
                 val bitmap = Glide.with(context)
@@ -104,11 +105,12 @@ class DownloadWorker(
             .notify(DownloadWorker.NEWS_NOTIFICATION_ID + Random.nextInt(), notification)
     }
 
-    private fun getNewsNotificationBuilder(): NotificationCompat.Builder {
-//        val intent = Intent(this, MainActivity::class.java)
-//            .putExtra("", "")
-//
-//        val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+    private fun getNewsNotificationBuilder(imageUri: Uri): NotificationCompat.Builder {
+        val intent = Intent()
+        intent.action = Intent.ACTION_VIEW
+        intent.setDataAndType(imageUri, "image/*")
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
         return NotificationCompat.Builder(
             context,
@@ -118,8 +120,8 @@ class DownloadWorker(
             .setContentText("Фотография сохранена")
             .setSmallIcon(com.example.unsplash.R.drawable.ic_baseline_notifications_24)
             //для того чтоб отображалось на версии ниже О с нужным приоритетом
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-//            .setContentIntent(pendingIntent)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setContentIntent(pendingIntent)
             .setAutoCancel(false)
     }
 

@@ -74,6 +74,7 @@ interface UnsplashApi {
         @Path("photoId") photoId: String
     ): PhotoDetail?
 
+
     @GET
     suspend fun downloadPhoto(
         @Url
@@ -96,7 +97,6 @@ interface UnsplashApi {
         @Query("per_page") pageSize: String? = "15",
         @Query("order_by") order_by: String? = null
     ): Response<List<Collection>>
-
 
 
     @GET("/search/photos")

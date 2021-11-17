@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/myCollectionsFragment"
         android:name="com.example.unsplash.screens.main.tabs.profile_fragment.myCollectionsFragment.MyCollectionsFragment"
-        android:label="MyCollectionsFragment">
+        android:label="Профиль">
         <action
             android:id="@+id/action_myCollectionsFragment_to_collectionFragment"
             app:destination="@id/collectionFragment" />
@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/collectionFragment"
         android:name="com.example.unsplash.screens.main.collection_fragment.CollectionFragmentInMy"
-        android:label="CollectionFragment">
+        android:label="Профиль">
         <action
             android:id="@+id/action_collectionFragment_to_photoDetailFragment5"
             app:destination="@id/photoDetailFragment5" />
@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/photoDetailFragment5"
         android:name="com.example.unsplash.screens.main.photo_detail_fragment.PhotoDetailFragment"
-        android:label="PhotoDetailFragment">
+        android:label="Профиль">
         <argument
             android:name="photo"
             app:argType="com.example.unsplash.data.essences.photo.Photo" />/>

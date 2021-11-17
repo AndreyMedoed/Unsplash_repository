@@ -1,10 +1,11 @@
-package com.example.unsplash.screens.splash.fragmens.onboarding_fragment
+package com.example.unsplash.screens.main.onboarding_fragment
 
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,7 +15,7 @@ import androidx.transition.TransitionManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.unsplash.R
 import com.example.unsplash.databinding.OnboardingLayoutBinding
-import com.example.unsplash.screens.splash.SplashFragment
+import com.example.unsplash.screens.splash.fragmens.onboarding_fragment.OnboardingViewModel
 
 class OnboadingFragment : Fragment(R.layout.onboarding_layout) {
     private val binding: OnboardingLayoutBinding by viewBinding()
@@ -32,6 +33,16 @@ class OnboadingFragment : Fragment(R.layout.onboarding_layout) {
         bind()
         viewModel.nextScene()
         onBoardingIsShown()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
     }
 
     private fun bind() {

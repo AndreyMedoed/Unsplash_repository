@@ -1,12 +1,9 @@
 package com.example.unsplash.screens.splash
 
-import android.app.Application
 import android.content.Context
-import androidx.lifecycle.*
 import com.example.unsplash.Network.NetworkConfig
 import com.example.unsplash.dataBase.Database
-import com.example.unsplash.screens.splash.fragmens.authorization_fragment_.AuthFragment
-import kotlinx.coroutines.launch
+import com.example.unsplash.screens.main.authorization_fragment_.AuthFragment
 
 
 /**

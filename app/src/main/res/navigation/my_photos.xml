@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/myPhotoFragment"
         android:name="com.example.unsplash.screens.main.tabs.profile_fragment.myPhotoFragment.MyPhotoFragment"
-        android:label="MyPhotoFragment" >
+        android:label="Профиль" >
         <action
             android:id="@+id/action_myPhotoFragment_to_photoDetailFragment"
             app:destination="@id/photoDetailFragment" />
@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/photoDetailFragment"
         android:name="com.example.unsplash.screens.main.photo_detail_fragment.PhotoDetailFragment"
-        android:label="PhotoDetailFragment" >
+        android:label="Профиль" >
         <argument
             android:name="photo"
             app:argType="com.example.unsplash.data.essences.photo.Photo" />

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- myfigmaunsplash strings -->
 
-	<string name="app_name">Prototyping in Figma</string>
-	<string name="log_in_string">  unsplash</string>
+	<string name="app_name">Unsplash</string>
+	<string name="log_in_string">unsplash</string>
 	<string name="auth_canceled"> Авторизация отклонена</string>
     <string name="download_button"><u>DOWNLOAD</u></string>
 </resources>

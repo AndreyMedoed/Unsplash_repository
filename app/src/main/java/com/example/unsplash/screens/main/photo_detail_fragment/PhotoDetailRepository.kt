@@ -42,7 +42,7 @@ class PhotoDetailRepository(private val context: Context) {
                     val photoUri = savePhotoDetails(name, uri)
                     downloadPhoto(url, photoUri)
                     makePhotoVisible(photoUri)
-                    continuation.resume(SUCCESS_MESSAGE)
+                    continuation.resume(photoUri.toString())
                 } catch (t: Throwable) {
                     Log.d("UnsplashLogging", "Ошибка при загрузке файла: ${t.stackTraceToString()}")
                     continuation.resume(FAILURE_INTERNET_MESSAGE)

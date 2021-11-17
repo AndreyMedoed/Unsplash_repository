@@ -8,11 +8,11 @@
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.unsplash.screens.splash.SplashFragment"
-        android:label="fragment_splash"
+        android:label="Подготовка"
         tools:layout="@layout/fragment_splash" />
     <activity
         android:id="@+id/mainActivity"
-        android:name="ua.cn.stu.navcomponent.tabs.screens.main.MainActivity"
+        android:name="com.example.unsplash.screens.main.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" >
         <argument

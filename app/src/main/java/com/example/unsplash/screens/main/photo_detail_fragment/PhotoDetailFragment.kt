@@ -31,6 +31,7 @@ import com.example.unsplash.data.essences.photo.photo_detail.PhotoDetail
 import com.example.unsplash.databinding.PhotoDetailLayoutBinding
 import com.example.unsplash.screens.main.MainActivity
 import com.example.unsplash.screens.main.tabs.top_photo_list_fragment.TopPhotoListFragmentDirections
+import java.util.regex.Pattern
 
 class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
 
@@ -52,6 +53,7 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
         initSelectDocumentFolderLauncher()
         setHasOptionsMenu(true)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

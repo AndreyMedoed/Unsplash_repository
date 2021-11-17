@@ -8,6 +8,6 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.unsplash.screens.main.tabs.profile_fragment.ProfileFragment"
-        android:label="screen_profile"
+        android:label="Профиль"
         tools:layout="@layout/profile_layout" />
 </navigation>

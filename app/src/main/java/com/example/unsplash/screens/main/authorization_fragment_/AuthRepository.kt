@@ -4,7 +4,6 @@ import android.net.Uri
 import android.util.Log
 import com.example.unsplash.data.essences.Token
 import com.example.unsplash.dataBase.Database
-import com.example.unsplash.screens.splash.fragmens.authorization_fragment_.AuthFragment
 import com.example.unsplash.Network.NetworkConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

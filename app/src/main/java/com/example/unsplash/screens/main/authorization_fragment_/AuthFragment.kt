@@ -1,28 +1,41 @@
-package com.example.unsplash.screens.splash.fragmens.authorization_fragment_
+package com.example.unsplash.screens.main.authorization_fragment_
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.unsplash.databinding.AuthorizationLayoutBinding
 import com.example.unsplash.R
-import com.skillbox.github.ui.auth.AuthViewModel
+import com.example.unsplash.databinding.AuthorizationLayoutBinding
 import com.example.unsplash.utils.toast
+import com.skillbox.github.ui.auth.AuthViewModel
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
+
 
 class AuthFragment : Fragment(R.layout.authorization_layout) {
     private val binding: AuthorizationLayoutBinding by viewBinding()
     private val viewModel: AuthViewModel by viewModels()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         bindViewModel()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
