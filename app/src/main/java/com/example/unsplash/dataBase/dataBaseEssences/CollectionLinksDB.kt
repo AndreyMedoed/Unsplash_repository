@@ -12,11 +12,13 @@ import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = CollectionLinksContract.TABLE_NAME,
+@Entity(
+    tableName = CollectionLinksContract.TABLE_NAME,
     indices = [
         Index(CollectionLinksContract.Columns.SELF),
         Index(CollectionLinksContract.Columns.HTML)
-    ])
+    ]
+)
 @JsonClass(generateAdapter = true)
 data class CollectionLinksDB(
     @Json(name = "id")

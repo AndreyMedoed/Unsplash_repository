@@ -1,15 +1,13 @@
 package com.example.unsplash.dataBase.dataBaseEssences
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.example.unsplash.data.contracts.*
-import com.example.unsplash.data.essences.PhotoAndCollection
+import com.example.unsplash.dataBase.contracts.PhotoContract
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.parcelize.Parcelize
 
 
 @Entity(
@@ -58,10 +56,10 @@ data class CollectionDB(
     var user_id: String?,
     @Json(name = "cover_photo_id")
     @ColumnInfo(name = CollectionContract.Columns.COVER_PHOTO)
-    var cover_photo_id: String?,
+    var cover_photo_id: Long?,
     @Json(name = "mark")
     @ColumnInfo(name = CollectionContract.Columns.MARK)
     var mark: String?
 ) {
-    constructor() : this("", "", "", 0, false, 0, "", "", "")
+    constructor() : this("", "", "", 0, false, 0, "", 0, "")
 }

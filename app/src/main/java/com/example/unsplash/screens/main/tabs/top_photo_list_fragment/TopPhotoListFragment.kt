@@ -49,7 +49,6 @@ class TopPhotoListFragment : Fragment(R.layout.top_photo_list_layout) {
         initSwipe()
     }
 
-
     @ExperimentalPagingApi
     private fun observe() {
         Log.d("UnsplashLoggingPaging", "observe")

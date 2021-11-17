@@ -149,6 +149,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/profile_Tabs_Fragment_Container"
             android:name="androidx.navigation.fragment.NavHostFragment"

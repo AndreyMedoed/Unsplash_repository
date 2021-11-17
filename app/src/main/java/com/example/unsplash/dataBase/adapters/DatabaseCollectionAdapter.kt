@@ -1,5 +1,6 @@
 package com.example.unsplash.dataBase.adapters
 
+import android.util.Log
 import com.example.unsplash.dataBase.Database
 import com.example.unsplash.data.essences.collection.Collection
 import com.example.unsplash.dataBase.dataBaseEssences.CollectionDB
@@ -18,6 +19,9 @@ class DatabaseCollectionAdapter {
     private val databaseUserAdapter = DatabaseUserAdapter()
 
     suspend fun fromCollectionToDBCollection(collection: Collection, mark: String?): String {
+
+        Log.d("CollectionAdapterLoging", "collection.cover_photo? is ${collection.cover_photo}")
+
         val collectionDB = CollectionDB(
             id = collection.id,
             title = collection.title,
@@ -28,10 +32,11 @@ class DatabaseCollectionAdapter {
                 databaseCollectionLinksAdapter.fromCollectionLinksToDBCollectionLinks(it)
             },
             user_id = collection.user?.let {
-                databaseUserAdapter.fromUserToDBUser(it, null)
+                databaseUserAdapter.fromUserToDBUser(it, mark)
             },
             cover_photo_id = collection.cover_photo?.let {
-                databasePhotoAdapter.fromPhotoToDBPhoto(it, null)
+                Log.d("CollectionAdapterLoging", "Photo not null")
+                databasePhotoAdapter.fromPhotoToDBPhoto(it, mark)
             },
             mark = mark
         )

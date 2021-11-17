@@ -1,12 +1,8 @@
 package com.example.roomdao.dataBase.dao
 
 import androidx.room.*
-import com.example.unsplash.data.contracts.CollectionContract
-import com.example.unsplash.data.contracts.PhotoContract
 import com.example.unsplash.data.contracts.UserContract
-import com.example.unsplash.dataBase.dataBaseEssences.PhotoDB
 import com.example.unsplash.dataBase.dataBaseEssences.*
-import retrofit2.http.DELETE
 
 @Dao
 interface UserDao {

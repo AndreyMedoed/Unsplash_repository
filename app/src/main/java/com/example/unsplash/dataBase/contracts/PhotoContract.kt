@@ -1,4 +1,4 @@
-package com.example.unsplash.data.contracts
+package com.example.unsplash.dataBase.contracts
 
 object PhotoContract {
 
@@ -7,6 +7,7 @@ object PhotoContract {
 
     object Columns {
         const val ID = "id"
+        const val UNSPLASH_ID = "unsplash_id"
         const val DESCRIPTION = "description"
         const val PHOTO_URLS_ID = "photo_urls_id"
         const val LIKES = "likes"

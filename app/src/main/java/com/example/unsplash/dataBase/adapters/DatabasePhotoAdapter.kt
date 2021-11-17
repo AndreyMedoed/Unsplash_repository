@@ -18,9 +18,10 @@ class DatabasePhotoAdapter {
     private val databasePhotoUrlAdapter = DatabasePhotoUrlAdapter()
     private val databaseUserAdapter = DatabaseUserAdapter()
 
-    suspend fun fromPhotoToDBPhoto(photo: Photo, mark: String?): String {
+    suspend fun fromPhotoToDBPhoto(photo: Photo, mark: String?): Long {
         val photoDB = PhotoDB(
-            id = photo.id,
+            id = 0,
+            unsplashId = photo.id,
             description = photo.description,
             photo_urls_id = photo.urls?.let {
                 databasePhotoUrlAdapter.fromPhotoUrlToDBPhotoUrl(it)
@@ -34,15 +35,15 @@ class DatabasePhotoAdapter {
             mark = mark
         )
         photoDao.insertPhoto(photoDB)
-        return photo.id
+        val id = photoDao.getPhotoByUnsplashIdAndMark(photo.id, mark).id
+        return id
     }
 
-
-    suspend fun fromDBPhotoToPhoto(photoDB_id: String): Photo? {
+    suspend fun fromDBPhotoToPhoto(photoDB_id: Long): Photo? {
         val photoDB = photoDao.getPhotoById(photoDB_id)
         return photoDB?.let {
             Photo(
-                id = photoDB.id,
+                id = photoDB.unsplashId,
                 description = photoDB.description,
                 urls = photoDB.photo_urls_id?.let {
                     databasePhotoUrlAdapter.fromDBPhotoUrlToPhotoUrl(it)
@@ -57,7 +58,7 @@ class DatabasePhotoAdapter {
         }
     }
 
-    suspend fun deletePhotosByMarker(marker: String){
+    suspend fun deletePhotosByMarker(marker: String) {
         photoDao.deleteByMarker(marker)
     }
 
