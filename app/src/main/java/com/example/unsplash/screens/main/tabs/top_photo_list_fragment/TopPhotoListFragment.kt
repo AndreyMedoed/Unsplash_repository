@@ -21,7 +21,6 @@ import com.example.unsplash.dataBase.adapters.DatabasePhotoAdapter
 import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.databinding.TopPhotoListLayoutBinding
-import com.example.unsplash.screens.splash.fragmens.top_photo_list_fragment.TopPhotoListFragmentViewModel
 import com.example.unsplash.utils.ItemOffsetDecoration
 import com.skillbox.github.utils.autoCleared
 import jp.wasabeef.recyclerview.animators.FlipInTopXAnimator
@@ -73,7 +72,8 @@ class TopPhotoListFragment : Fragment(R.layout.top_photo_list_layout) {
     }
 
     private fun initAdapter() {
-        adapter = PagingPhotoAndCollectionAdapter({ photoId -> setLike(photoId) },
+        adapter = PagingPhotoAndCollectionAdapter(requireContext(),
+            { photoId -> setLike(photoId) },
             { photoId -> deleteLike(photoId) },
             {},
             { photo -> openPhotoDetails(photo) })

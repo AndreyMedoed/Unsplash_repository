@@ -1,11 +1,8 @@
 package com.example.roomdao.dataBase.dao
 
 import androidx.room.*
-import com.example.unsplash.data.contracts.CollectionContract
 import com.example.unsplash.data.contracts.CollectionLinksContract
-import com.example.unsplash.data.contracts.UserLinksContract
 import com.example.unsplash.dataBase.dataBaseEssences.CollectionLinksDB
-import com.example.unsplash.dataBase.dataBaseEssences.UserLinksDB
 
 
 @Dao

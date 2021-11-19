@@ -15,7 +15,6 @@ import androidx.transition.TransitionManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.unsplash.R
 import com.example.unsplash.databinding.OnboardingLayoutBinding
-import com.example.unsplash.screens.splash.fragmens.onboarding_fragment.OnboardingViewModel
 
 class OnboadingFragment : Fragment(R.layout.onboarding_layout) {
     private val binding: OnboardingLayoutBinding by viewBinding()
@@ -97,19 +96,19 @@ class OnboadingFragment : Fragment(R.layout.onboarding_layout) {
             when (it) {
                 2 -> {
                     binding.onBoardingTextViewId.text =
-                        "Создавайте снимки, публикуйте, собирайте аудиторию, получайте фидбек!"
+                        getString(R.string.onBoarding_text1)
                     binding.onBoardingTextViewId.startAnimation(animForward)
                     TransitionManager.go(scene_anim_2, slide_top)
                 }
                 3 -> {
                     binding.onBoardingTextViewId.text =
-                        "Добавляйте понравившиеся фото в коллекции, и делитесь с друзьями."
+                        getString(R.string.onBoarding_text2)
                     binding.onBoardingTextViewId.startAnimation(animForward)
                     TransitionManager.go(scene_anim_3, slide_top)
                 }
                 4 -> {
                     binding.onBoardingTextViewId.text =
-                        "Заряжайтесь новыми эмоциями с лентой лучших фото и коллекций."
+                        getString(R.string.onBoarding_text3)
                     binding.onBoardingTextViewId.startAnimation(animForward)
                     TransitionManager.go(scene_anim_4, slide_top)
                 }

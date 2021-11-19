@@ -39,9 +39,7 @@ object NetworkConfig {
     const val AUTH_URI = "https://unsplash.com/oauth/authorize"
     const val TOKEN_URI = "https://unsplash.com/oauth/token"
     const val RESPONSE_TYPE = ResponseTypeValues.CODE
-
     const val ALL_SCOPES = "public read_user write_user read_photos write_photos write_likes write_followers read_collections write_collections"
-
     const val CLIENT_ID = "mKFi8dQZY4xfESMojSJ8i2tYH3RdCJN_UaUDdd78FcQ"
     const val CLIENT_SECRET = "I4FQa5hQeuzz7RBr9iv5yqPOFPlLmtYZGSpwgzI8CWk"
     const val CALLBACK_URL = "com.example.unsplash://lisbv"

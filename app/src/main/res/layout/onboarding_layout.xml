@@ -43,7 +43,7 @@
         android:layout_marginTop="30dp"
         android:elevation="20dp"
         android:gravity="center"
-        android:textAppearance="?attr/textAppearanceHeadline5"
+        android:textAppearance="@style/customTextAppearanceHeadline5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -4,6 +4,6 @@
     <item
         android:id="@+id/exit_item_id"
         android:icon="@drawable/ic_baseline_exit_to_app_24"
-        android:title="exit"
+        android:title="@string/profile_menu_exit"
         app:showAsAction="always" />
 </menu>

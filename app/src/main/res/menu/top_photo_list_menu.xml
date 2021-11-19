@@ -4,7 +4,7 @@
     <item
         android:id="@+id/search_icon"
         android:icon="@drawable/ic_baseline_search_24"
-        android:title="search"
+        android:title="@string/top_photo_list_menu_search"
         app:showAsAction="always" />
 
 </menu>

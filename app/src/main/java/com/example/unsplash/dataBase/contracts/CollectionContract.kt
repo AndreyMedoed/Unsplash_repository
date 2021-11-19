@@ -1,4 +1,4 @@
-package com.example.unsplash.data.contracts
+package com.example.unsplash.dataBase.contracts
 
 object CollectionContract {
 

@@ -14,6 +14,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.bumptech.glide.Glide
 import com.example.unsplash.Notifications.NotificationChannels
+import com.example.unsplash.R
 import com.example.unsplash.screens.main.MainActivity
 import com.example.unsplash.screens.main.photo_detail_fragment.PhotoDetailRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -116,8 +117,8 @@ class DownloadWorker(
             context,
             NotificationChannels.NEWS_CHANNEL_ID
         )
-            .setContentTitle("Загрузка")
-            .setContentText("Фотография сохранена")
+            .setContentTitle(context.getString(R.string.download_worker_downloading))
+            .setContentText(context.getString(R.string.download_worker_isSave))
             .setSmallIcon(com.example.unsplash.R.drawable.ic_baseline_notifications_24)
             //для того чтоб отображалось на версии ниже О с нужным приоритетом
             .setPriority(NotificationCompat.PRIORITY_LOW)

@@ -3,13 +3,13 @@
     <item
         android:id="@+id/photos"
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="фото" />
+        android:title="@string/tabs_menu_photo" />
     <item
         android:id="@+id/collections"
         android:icon="@drawable/ic_baseline_star_24"
-        android:title="коллекции" />
+        android:title="@string/tabs_menu_collections" />
     <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_baseline_person_24"
-        android:title="профиль" />
+        android:title="@string/tabs_menu_profile" />
 </menu>

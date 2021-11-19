@@ -1,4 +1,4 @@
-package com.example.unsplash.screens.splash.fragmens.onboarding_fragment
+package com.example.unsplash.screens.main.onboarding_fragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

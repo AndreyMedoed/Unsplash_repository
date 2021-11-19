@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_likes"
     app:startDestination="@id/myLikesFragment">
 
     <fragment
         android:id="@+id/myLikesFragment"
         android:name="com.example.unsplash.screens.main.tabs.profile_fragment.myLikesFragment.MyLikesFragment"
-        android:label="Профиль" >
+        android:label="@string/navigation_my_likes_myLikes"
+        tools:layout="@layout/photo_list_fragment_layout">
         <action
             android:id="@+id/action_myLikesFragment_to_photoDetailFragment2"
             app:destination="@id/photoDetailFragment2" />
@@ -15,7 +17,8 @@
     <fragment
         android:id="@+id/photoDetailFragment2"
         android:name="com.example.unsplash.screens.main.photo_detail_fragment.PhotoDetailFragment"
-        android:label="Профиль" >
+        android:label="@string/navigation_my_likes_photo_detail"
+        tools:layout="@layout/photo_detail_layout">
         <argument
             android:name="photo"
             app:argType="com.example.unsplash.data.essences.photo.Photo" />

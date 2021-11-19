@@ -1,4 +1,4 @@
-package com.example.unsplash.screens.splash.fragmens.top_collectionList_fragment
+package com.example.unsplash.screens.main.tabs.top_collectionList_fragment
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager

@@ -5,8 +5,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.example.unsplash.data.contracts.CollectionContract
-import com.example.unsplash.data.contracts.PhotoUrlContract
 import com.example.unsplash.data.contracts.ProfileImageContract
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

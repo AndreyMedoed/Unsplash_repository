@@ -18,7 +18,7 @@
             android:id="@+id/search_EditText_Id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Искать"
+            android:hint="@string/search_fragment_search"
             app:layout_constraintEnd_toStartOf="@id/search_Image_Id"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

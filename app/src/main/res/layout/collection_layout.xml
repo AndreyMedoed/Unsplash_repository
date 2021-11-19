@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:text=" фотографий от @"
+                    android:text="@string/collection_layout_textView1"
                     android:textAppearance="@style/customLightSubtitle2" />
 
                 <TextView

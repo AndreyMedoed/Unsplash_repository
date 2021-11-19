@@ -2,28 +2,23 @@ package com.example.unsplash.screens.main.tabs.profile_fragment
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.navigation.ui.NavigationUI
-import androidx.paging.ExperimentalPagingApi
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.unsplash.R
 import com.example.unsplash.data.essences.user.Profile
 import com.example.unsplash.data.essences.user.User
 import com.example.unsplash.databinding.ProfileLayoutBinding
-import com.example.unsplash.screens.main.tabs.TabsFragmentDirections
 import com.example.unsplash.screens.splash.fragmens.profile_fragment.ProfileViewModel
 import com.example.unsplash.utils.findTopNavController
 
@@ -64,10 +59,10 @@ class ProfileFragment : Fragment(R.layout.profile_layout) {
 
     private fun showAlertDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Выход")
-            .setMessage("Вы уверены, что хотите выйти? Все локальные данные будут удалены.")
-            .setNegativeButton("НЕТ") { dialog, _ -> dialog.dismiss() }
-            .setPositiveButton("Да") { _, _ -> exit() }
+            .setTitle(getString(R.string.profile_dialog_title))
+            .setMessage(getString(R.string.profile_dialog_message))
+            .setNegativeButton(getString(R.string.profile_dialog_negative)) { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton(getString(R.string.profile_dialog_positive)) { _, _ -> exit() }
             .show()
     }
 
@@ -110,7 +105,11 @@ class ProfileFragment : Fragment(R.layout.profile_layout) {
         if (profile == null) return
         binding.bioId.text = profile.bio
         binding.emailId.text = profile.email
-        binding.firstLastNameId.text = "${profile.first_name} ${profile.last_name}"
+        binding.firstLastNameId.text = resources.getString(
+            R.string.profile_firstLastName,
+            profile.first_name,
+            profile.last_name
+        )
         binding.locationId.text = profile.location
         binding.usernameId.text = profile.username
         binding.downloadsId.text = profile.downloads.toString()

@@ -1,4 +1,4 @@
-package com.example.unsplash.screens.splash.fragmens.top_photo_list_fragment
+package com.example.unsplash.screens.main.tabs.top_photo_list_fragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import com.example.unsplash.data.essences.PhotoAndCollection
+import com.example.unsplash.screens.main.tabs.top_photo_list_fragment.TopPhotoListRepository
 import kotlinx.coroutines.launch
 
 class TopPhotoListFragmentViewModel : ViewModel() {

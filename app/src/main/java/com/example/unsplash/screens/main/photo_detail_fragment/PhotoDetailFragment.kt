@@ -19,7 +19,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.airbnb.lottie.LottieAnimationView
@@ -29,9 +28,6 @@ import com.example.unsplash.R
 import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.data.essences.photo.photo_detail.PhotoDetail
 import com.example.unsplash.databinding.PhotoDetailLayoutBinding
-import com.example.unsplash.screens.main.MainActivity
-import com.example.unsplash.screens.main.tabs.top_photo_list_fragment.TopPhotoListFragmentDirections
-import java.util.regex.Pattern
 
 class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
 
@@ -100,10 +96,14 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
     }
 
     private fun bindPhoto(photo: Photo) {
-
-        binding.fullnameTextViewId.text = "${photo.user?.first_name} ${photo.user?.last_name ?: ""}"
+        binding.fullnameTextViewId.text = resources.getString(
+            R.string.photo_detail_full_name,
+            photo.user?.first_name,
+            photo.user?.last_name ?: ""
+        )
         binding.usernameTextViewId.text = photo.user?.username
-        binding.usernameTextView2Id.text = "${photo.user?.username}:"
+        binding.usernameTextView2Id.text =
+            resources.getString(R.string.photo_detail_username_TextView2, photo.user?.username)
         binding.likeNumberTextViewId.text = photo.likes?.toString()
 
         Glide.with(requireContext())
@@ -155,8 +155,11 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
     private fun bindPhotoDetail(photoDetail: PhotoDetail?) {
         if (photoDetail == null) return
         if (photoDetail.location != null) {
-            binding.locationTextViewId.text =
-                "${photoDetail.location?.city ?: "-"}, ${photoDetail.location?.country ?: "-"}"
+            binding.locationTextViewId.text = resources.getString(
+                R.string.photo_detail_location,
+                photoDetail.location.city ?: "-",
+                photoDetail.location.country ?: "-"
+            )
         } else binding.locationImageViewId.isVisible = false
 
         binding.tagsTextViewId.text = photoDetail.tags?.joinToString { "#${it.title} " }
@@ -167,7 +170,10 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
         binding.focalLengthTextViewId.text = photoDetail.exif?.focal_length ?: "-"
         binding.isoTextViewId.text = photoDetail.exif?.iso?.toString() ?: "-"
         binding.descriptionTextViewId.text = photoDetail.description ?: "-"
-        binding.downloadsNumberId.text = "(${photoDetail.downloads?.toString()})"
+        binding.downloadsNumberId.text = resources.getString(
+            R.string.photo_detail_downloads_number,
+            photoDetail.downloads?.toString() ?: "-"
+        )
         binding.locationTextViewId.setOnClickListener {
             goToMap(
                 photoDetail.location?.position?.latitude,
@@ -241,7 +247,11 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
     * их получить) а так же, ури выбранной папки */
     private fun handleSelectDirectory(uri: Uri?) {
         if (uri == null) {
-            Toast.makeText(requireContext(), "Директория не выбрана", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.photo_detail_directory_not_selected),
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
         try {
@@ -249,7 +259,11 @@ class PhotoDetailFragment : Fragment(R.layout.photo_detail_layout) {
                 viewModel.savePhoto(args.photo.id, raw, uri)
             }
         } catch (t: Throwable) {
-            Toast.makeText(requireContext(), "Сохранить не удалось", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.photo_detail_cant_save),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

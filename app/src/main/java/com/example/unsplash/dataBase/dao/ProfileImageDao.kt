@@ -1,10 +1,8 @@
 package com.example.roomdao.dataBase.dao
 
 import androidx.room.*
-import com.example.unsplash.data.contracts.CollectionContract
 import com.example.unsplash.data.contracts.ProfileImageContract
 import com.example.unsplash.dataBase.dataBaseEssences.ProfileImageDB
-import retrofit2.http.DELETE
 
 @Dao
 interface ProfileImageDao {

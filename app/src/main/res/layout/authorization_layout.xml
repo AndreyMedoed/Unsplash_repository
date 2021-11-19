@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Aperture"
+            android:text="@string/authorization_layout_aperture"
             android:textAppearance="?attr/textAppearanceHeadline5"
             android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +57,7 @@
                 android:id="@+id/unsplash_TextView_Id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Unsplash"
+                android:text="@string/authorization_layout_unsplash"
                 android:textAppearance="@style/customLightHeadline4"
                 android:textStyle="bold|italic" />
 
@@ -72,9 +72,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:backgroundTint="@color/black"
-        android:text="Войти через Unsplash"
-        android:textColor="@color/white"
+        android:backgroundTint="@color/loginButton"
+        android:text="@string/authorization_layout_login_button"
+        android:textColor="@color/convertTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guidelineAuthorization_Id" />

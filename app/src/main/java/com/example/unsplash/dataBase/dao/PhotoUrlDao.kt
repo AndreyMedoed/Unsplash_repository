@@ -1,7 +1,6 @@
 package com.example.unsplash.dataBase.dao
 
 import androidx.room.*
-import com.example.unsplash.data.contracts.CollectionContract
 import com.example.unsplash.data.contracts.PhotoUrlContract
 import com.example.unsplash.dataBase.dataBaseEssences.PhotoUrlDB
 

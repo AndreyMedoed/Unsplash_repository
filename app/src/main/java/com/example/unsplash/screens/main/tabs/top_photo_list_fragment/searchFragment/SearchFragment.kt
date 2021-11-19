@@ -48,7 +48,8 @@ class SearchFragment : Fragment(R.layout.search_fragment_layout) {
     }
 
     private fun initAdapter() {
-        photoAdapter = PagingPhotoAndCollectionAdapter({ photoId -> setLike(photoId) },
+        photoAdapter = PagingPhotoAndCollectionAdapter(requireContext(),
+            { photoId -> setLike(photoId) },
             { photoId -> deleteLike(photoId) },
             { },
             { photo -> openPhotoDetail(photo) }

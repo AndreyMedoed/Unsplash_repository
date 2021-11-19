@@ -59,7 +59,8 @@ class TopCollectionListFragment : Fragment(R.layout.top_collection_list_layout) 
     }
 
     private fun initAdapter() {
-        collectionAdapter = PagingPhotoAndCollectionAdapter({ photoId -> setLike(photoId) },
+        collectionAdapter = PagingPhotoAndCollectionAdapter(requireContext(),
+            { photoId -> setLike(photoId) },
             { photoId -> deleteLike(photoId) },
             { collection -> openCollection(collection) },
             {}

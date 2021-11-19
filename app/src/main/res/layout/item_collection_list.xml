@@ -36,17 +36,7 @@
             android:textAppearance="@style/customLightHeadline6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="132" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="фотографий"
-            android:layout_marginTop="5dp"
-            android:textAppearance="@style/customLightHeadline6"
-            app:layout_constraintStart_toEndOf="@id/photo_Number_TextView_Id"
-            app:layout_constraintTop_toTopOf="parent"/>
+            tools:text="132 фотографии" />
 
         <TextView
             android:id="@+id/collection_Title_TextView_Id"

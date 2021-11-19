@@ -4,12 +4,13 @@ import android.app.Application
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.*
+import com.example.unsplash.R
 import com.example.unsplash.data.essences.photo.photo_detail.PhotoDetail
 import com.example.unsplash.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 class PhotoDetailViewModel(application: Application) : AndroidViewModel(application) {
-
+    private val context = application
     private val repository = PhotoDetailRepository(application)
     private val toastSingleLiveEvent = SingleLiveEvent<String>()
     val toastLiveData: LiveData<String>
@@ -47,7 +48,7 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
                 repository.startDownload(name, url, uri)
             } catch (t: Throwable) {
                 Log.d("UnsplashLoggingDownload", "${t.message} ")
-                toastSingleLiveEvent.postValue("Ошибка при сохранении фото")
+                toastSingleLiveEvent.postValue(context.getString(R.string.photo_detail_save_fail))
             }
         }
     }

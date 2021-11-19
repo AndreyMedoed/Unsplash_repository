@@ -2,16 +2,11 @@ package com.example.unsplash.screens.main
 
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -182,10 +177,10 @@ class MainActivity : AppCompatActivity() {
         Log.d("ProcessLog", "showSnackBar in MainActivity")
         Snackbar.make(
             binding.fragmentContainer,
-            "Фото сохранено на устройство",
+            getString(R.string.main_activity_is_save),
             Snackbar.LENGTH_SHORT
         ).setAnchorView(R.id.bottomNavigationView)
-            .setAction("Перейти") {
+            .setAction(getString(R.string.main_activity_open)) {
                 goToGallery(uri)
             }
             .show()

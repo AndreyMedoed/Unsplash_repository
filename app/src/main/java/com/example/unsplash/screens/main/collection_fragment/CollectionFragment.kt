@@ -22,7 +22,6 @@ import com.example.unsplash.dataBase.adapters.DatabasePhotoAdapter
 import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.databinding.CollectionLayoutBinding
-import com.example.unsplash.screens.splash.fragmens.collection_fragment.CollectionViewModel
 import com.skillbox.github.utils.autoCleared
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
@@ -72,7 +71,8 @@ class CollectionFragment : Fragment(R.layout.collection_layout) {
 
 
     private fun initAdapter() {
-        photoAdapter = PagingPhotoAndCollectionAdapter({ photoId -> setLike(photoId) },
+        photoAdapter = PagingPhotoAndCollectionAdapter(requireContext(),
+            { photoId -> setLike(photoId) },
             { photoId -> deleteLike(photoId) },
             { },
             { photo -> openPhotoDetail(photo) }

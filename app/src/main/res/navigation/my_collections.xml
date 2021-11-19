@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_collections"
     app:startDestination="@id/myCollectionsFragment">
 
     <fragment
         android:id="@+id/myCollectionsFragment"
         android:name="com.example.unsplash.screens.main.tabs.profile_fragment.myCollectionsFragment.MyCollectionsFragment"
-        android:label="Профиль">
+        android:label="@string/navigation_my_collections_myCollections"
+        tools:layout="@layout/my_collections_fragment_layout">
         <action
             android:id="@+id/action_myCollectionsFragment_to_collectionFragment"
             app:destination="@id/collectionFragment" />
@@ -15,7 +17,8 @@
     <fragment
         android:id="@+id/collectionFragment"
         android:name="com.example.unsplash.screens.main.collection_fragment.CollectionFragmentInMy"
-        android:label="Профиль">
+        android:label="@string/navigation_my_collections_collection"
+        tools:layout="@layout/collection_layout">
         <action
             android:id="@+id/action_collectionFragment_to_photoDetailFragment5"
             app:destination="@id/photoDetailFragment5" />
@@ -26,7 +29,8 @@
     <fragment
         android:id="@+id/photoDetailFragment5"
         android:name="com.example.unsplash.screens.main.photo_detail_fragment.PhotoDetailFragment"
-        android:label="Профиль">
+        android:label="@string/navigation_my_collections_photo_detail"
+        tools:layout="@layout/photo_detail_layout">
         <argument
             android:name="photo"
             app:argType="com.example.unsplash.data.essences.photo.Photo" />/>

@@ -163,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:gravity="start"
-                    android:text="Фирма: "
+                    android:text="@string/photo_detail_firm"
                     android:textAppearance="?attr/textAppearanceBody1" />
 
                 <TextView
@@ -191,7 +191,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
-                    android:text="Модель: "
+                    android:text="@string/photo_detail_model"
                     android:textAppearance="?attr/textAppearanceBody1" />
 
                 <TextView
@@ -219,7 +219,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
-                    android:text="Экспозиция: "
+                    android:text="@string/photo_detail_exposition"
                     android:textAppearance="?attr/textAppearanceBody1" />
 
                 <TextView
@@ -247,7 +247,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
-                    android:text="Объектив: "
+                    android:text="@string/photo_detail_lens"
                     android:textAppearance="?attr/textAppearanceBody1" />
 
                 <TextView
@@ -275,7 +275,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
-                    android:text="Фокус: "
+                    android:text="@string/photo_detail_focus"
                     android:textAppearance="?attr/textAppearanceBody1" />
 
                 <TextView
@@ -303,7 +303,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
-                    android:text="ISO: "
+                    android:text="@string/photo_detail_iso"
                     android:textAppearance="?attr/textAppearanceBody1" />
 
                 <TextView
@@ -333,7 +333,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:gravity="start"
-                    android:text="Автор @"
+                    android:text="@string/photo_detail_author_textView"
                     android:textAppearance="?attr/textAppearanceBody1" />
 
                 <TextView
@@ -371,18 +371,18 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/downloadMaterialCardView_Id"
         android:layout_width="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="5dp"
-        app:cardCornerRadius="20dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/downloadButtonColor"
             android:elevation="20dp"
-            android:background="@color/white"
             android:gravity="center_vertical|end"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -418,6 +418,4 @@
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

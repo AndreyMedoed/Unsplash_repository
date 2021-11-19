@@ -1,6 +1,7 @@
 package com.example.unsplash.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,12 +19,12 @@ import com.example.unsplash.databinding.ItemCollectionListBinding
 import com.example.unsplash.databinding.ItemPhotoListBinding
 
 class PagingPhotoAndCollectionAdapter(
+    private val context: Context,
     private val setLike: (photoId: String) -> Unit,
     private val deleteLike: (photoId: String) -> Unit,
     private val openCollectionPhotos: ((collection: Collection) -> Unit),
     private val openPhotoDetails: ((photo: Photo) -> Unit)
 ) : PagingDataAdapter<PhotoAndCollection, RecyclerView.ViewHolder>(PhotoDiffUtilCallback()) {
-
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
@@ -36,8 +37,8 @@ class PagingPhotoAndCollectionAdapter(
 
             }
         } else {
-                /** Если приходит null из БД, то обозначаем холдер как PhotoHolder и
-                 * даем ему заглушку в виде пустого экзенпляра класса фото. */
+            /** Если приходит null из БД, то обозначаем холдер как PhotoHolder и
+             * даем ему заглушку в виде пустого экзенпляра класса фото. */
             (holder as PhotoHolder).bind(
                 Photo(
                     "", "", null, null,
@@ -69,9 +70,19 @@ class PagingPhotoAndCollectionAdapter(
         val collectionBinding =
             ItemCollectionListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return when (viewType) {
-            PHOTO_CONSTANT -> PhotoHolder(photoBinding, setLike, deleteLike, openPhotoDetails)
-            COLLECTION_CONSTANT -> CollectionHolder(collectionBinding, openCollectionPhotos)
-            NULL_CONSTANT -> PhotoHolder(photoBinding, { }, { }, { })
+            PHOTO_CONSTANT -> PhotoHolder(
+                photoBinding,
+                setLike,
+                deleteLike,
+                openPhotoDetails,
+                context
+            )
+            COLLECTION_CONSTANT -> CollectionHolder(
+                collectionBinding,
+                openCollectionPhotos,
+                context
+            )
+            NULL_CONSTANT -> PhotoHolder(photoBinding, { }, { }, { }, context)
             else -> error("Неверный ViewType в функции onCreateViewHolder")
         }
     }
@@ -109,22 +120,29 @@ class PagingPhotoAndCollectionAdapter(
         private var binding: ItemPhotoListBinding,
         private val setLike: (photoId: String) -> Unit,
         private val deleteLike: (photoId: String) -> Unit,
-        private val openPhotoDetails: ((photo: Photo) -> Unit)
+        private val openPhotoDetails: ((photo: Photo) -> Unit),
+        private val context: Context
     ) : RecyclerView.ViewHolder(binding.root) {
         private var isLiked = false
-
         fun bind(photo: Photo) {
 
             binding.imageViewId.setOnClickListener {
                 openPhotoDetails(photo)
             }
 
-            binding.fullnameTextViewId.text = "${photo.user?.first_name} ${photo.user?.last_name ?: ""}"
+            binding.fullnameTextViewId.text = context.resources.getString(
+                R.string.paging_adapter_full_name,
+                photo.user?.first_name,
+                photo.user?.last_name ?: ""
+            )
             binding.usernameTextViewId.text = photo.user?.username
             binding.likeNumberTextViewId.text = photo.likes?.toString()
 
             if (photo.statistics?.downloads?.total != null) {
-                binding.downloadsNumberId.text = "(${photo.statistics?.downloads?.total})"
+                binding.downloadsNumberId.text = context.resources.getString(
+                    R.string.paging_adapter_downloads_number,
+                    photo.statistics.downloads.total.toString()
+                )
                 binding.downloadsNumberId.isVisible = true
                 binding.downIconId.isVisible = true
                 binding.textButtonDownload.isVisible = true
@@ -179,7 +197,8 @@ class PagingPhotoAndCollectionAdapter(
 
     class CollectionHolder(
         private val binding: ItemCollectionListBinding,
-        private val openCollectionPhotos: ((collection: Collection) -> Unit)? = null
+        private val openCollectionPhotos: ((collection: Collection) -> Unit)? = null,
+        private val context: Context
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(collection: Collection) {
@@ -199,10 +218,16 @@ class PagingPhotoAndCollectionAdapter(
                 .into(binding.roundedImageView)
 
             binding.collectionTitleTextViewId.text = collection.title
-            binding.fullnameTextViewId.text =
-                "${collection.user?.first_name} ${collection.user?.last_name}"
+            binding.fullnameTextViewId.text = context.resources.getString(
+                R.string.paging_adapter_full_name,
+                collection.user?.first_name,
+                collection.user?.last_name
+            )
             binding.usernameTextViewId.text = collection.user?.username
-            binding.photoNumberTextViewId.text = collection.total_photos.toString()
+            binding.photoNumberTextViewId.text = context.resources.getQuantityString(
+                R.plurals.item_collection_photo_number,
+                collection.total_photos ?: 0, collection.total_photos?.toString() ?: "0"
+            )
         }
     }
 

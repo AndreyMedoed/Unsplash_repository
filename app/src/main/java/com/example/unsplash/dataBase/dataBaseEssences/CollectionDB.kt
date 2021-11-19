@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.example.unsplash.data.contracts.*
+import com.example.unsplash.dataBase.contracts.CollectionContract
 import com.example.unsplash.dataBase.contracts.PhotoContract
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

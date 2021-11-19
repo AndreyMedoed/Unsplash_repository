@@ -3,13 +3,13 @@
     <item
         android:id="@+id/my_photos"
         android:enabled="true"
-        android:title="фотографии" />
+        android:title="@string/profile_bottom_navigation_menu_photo" />
     <item
         android:id="@+id/my_likes"
         android:enabled="true"
-        android:title="понравилось" />
+        android:title="@string/profile_bottom_navigation_menu_likes" />
     <item
         android:id="@+id/my_collections"
         android:enabled="true"
-        android:title="коллекции" />
+        android:title="@string/profile_bottom_navigation_menu_collections" />
 </menu>

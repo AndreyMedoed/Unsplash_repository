@@ -26,6 +26,6 @@
         android:layout_marginTop="12dp"
         android:layout_marginBottom="8dp"
         android:textColor="@color/white"
-        android:text="please_wait"/>
+        android:text="@string/fragment_splash_please_wait"/>
 
 </LinearLayout>

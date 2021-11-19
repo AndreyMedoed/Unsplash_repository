@@ -73,7 +73,8 @@ class MyPhotoFragment : Fragment(R.layout.photo_list_fragment_layout) {
 
 
     private fun initAdapter() {
-        myPhotoAdapter = PagingPhotoAndCollectionAdapter({ photoId -> setLike(photoId) },
+        myPhotoAdapter = PagingPhotoAndCollectionAdapter(requireContext(),
+            { photoId -> setLike(photoId) },
             { photoId -> deleteLike(photoId) },
             { },
             { photo -> openPhotoDetail(photo) }
