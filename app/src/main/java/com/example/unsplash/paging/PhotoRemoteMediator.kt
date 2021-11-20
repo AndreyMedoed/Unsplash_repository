@@ -12,6 +12,7 @@ import com.example.unsplash.Network.UnsplashApi
 import com.example.unsplash.dataBase.adapters.DatabasePhotoAdapter
 import com.example.unsplash.dataBase.dataBaseEssences.PhotoDB
 import com.example.unsplash.dataBase.dataBaseEssences.remoteKeys.RemoteKey
+import com.example.unsplash.utils.EmptyListException
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -57,14 +58,13 @@ class PhotoRemoteMediator(
                 }
             }
 
-
             val response = unsplashApi.getPagingPhotoContent(
                 marker,
                 loadKey,
                 pageSize.toString()
             )
 
-            var pageNumber: String = when {
+            val pageNumber: String = when {
                 loadKey == null -> "2"
                 else -> {
                     val page = loadKey.toInt() + 1
@@ -74,7 +74,6 @@ class PhotoRemoteMediator(
 
             val photoList = response.body()
             Log.d("UnsplashLoggingResponse", "pageNumber  ${pageNumber}")
-
             Log.d("UnsplashLoggingResponse", "response.headers()  ${response.headers()}")
 
             db.instance.withTransaction {
@@ -83,19 +82,22 @@ class PhotoRemoteMediator(
                     databasePhotoAdapter.deletePhotosByMarker(marker)
                     remoteKeyDao.deleteByMarker(marker)
                 }
-
                 remoteKeyDao.insert(
                     RemoteKey(
                         marker,
-                        if (photoList?.isEmpty() ?: true) {
+                        if (photoList.isNullOrEmpty()) {
                             "end"
                         } else pageNumber
                     )
                 )
                 photoList?.map { databasePhotoAdapter.fromPhotoToDBPhoto(it, marker) }
             }
+            /** Если на 1 странице пусто, значит выдаем кастомную ошибку - чтоб обработать пустой список*/
+            if (loadKey == null && photoList.isNullOrEmpty()) throw EmptyListException()
 
             return MediatorResult.Success(endOfPaginationReached = photoList.isNullOrEmpty())
+        } catch (e: EmptyListException) {
+            return MediatorResult.Error(e)
         } catch (e: IOException) {
             return MediatorResult.Error(e)
         } catch (e: HttpException) {

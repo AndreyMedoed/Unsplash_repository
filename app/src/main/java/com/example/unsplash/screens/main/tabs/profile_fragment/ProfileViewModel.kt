@@ -1,18 +1,15 @@
-package com.example.unsplash.screens.splash.fragmens.profile_fragment
+package com.example.unsplash.screens.main.tabs.profile_fragment
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
 import com.example.unsplash.data.essences.user.Profile
 import com.example.unsplash.data.essences.user.User
-import com.example.unsplash.screens.main.tabs.profile_fragment.ProfileRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ProfileViewModel : ViewModel() {
+class ProfileViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = ProfileRepository()
+    private val repository = ProfileRepository(application)
     private var profile: Profile? = null
 
     private val profileMutableLiveData = MutableLiveData<Profile?>()
@@ -33,17 +30,6 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
-    fun setLike(photoId: String) {
-        viewModelScope.launch {
-            repository.setLike(photoId)
-        }
-    }
-
-    fun deleteLike(photoId: String) {
-        viewModelScope.launch {
-            repository.deleteLike(photoId)
-        }
-    }
 
     fun clearAllDatabase() {
         viewModelScope.launch {

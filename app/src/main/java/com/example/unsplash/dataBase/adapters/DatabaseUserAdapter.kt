@@ -47,7 +47,7 @@ class DatabaseUserAdapter {
         return userDB.id
     }
 
-    suspend fun fromDBUserToUser(userDB_id: String): User? {
+    suspend fun fromDBUserToUser(userDB_id: String?): User? {
 
         val userDB = userDao.getUserById(userDB_id)
 

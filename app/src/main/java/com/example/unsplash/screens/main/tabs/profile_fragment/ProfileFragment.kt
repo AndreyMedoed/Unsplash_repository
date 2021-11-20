@@ -19,7 +19,6 @@ import com.example.unsplash.R
 import com.example.unsplash.data.essences.user.Profile
 import com.example.unsplash.data.essences.user.User
 import com.example.unsplash.databinding.ProfileLayoutBinding
-import com.example.unsplash.screens.splash.fragmens.profile_fragment.ProfileViewModel
 import com.example.unsplash.utils.findTopNavController
 
 class ProfileFragment : Fragment(R.layout.profile_layout) {
@@ -86,13 +85,14 @@ class ProfileFragment : Fragment(R.layout.profile_layout) {
         viewModel.getMyProfile()
     }
 
-
     private fun observe() {
         viewModel.profileLiveData.observe(viewLifecycleOwner) { profile ->
             Log.d("UnsplashLogging", "My profile is $profile")
             bindProfile(profile)
             putUsernameInSharedPref(profile?.username)
             initBottomNavigationView()
+            binding.profileBottomNavigationId.selectedItemId = R.id.my_likes
+            binding.profileBottomNavigationId.performClick()
         }
         viewModel.userLiveData.observe(viewLifecycleOwner) {
             Log.d("UnsplashLogging", "My User is $it")
@@ -138,7 +138,10 @@ class ProfileFragment : Fragment(R.layout.profile_layout) {
 
     companion object {
         private const val PROFILE_USERNAME_KEY = "SELECTED_PROFILE_NAVIGATION_ID"
-        private const val SHARED_PREFERENCE_NAME_PROFILE = "SHARED_PREFERENCE_NAME_PROFILE"
+        const val SHARED_PREFERENCE_NAME_PROFILE = "SHARED_PREFERENCE_NAME_PROFILE"
+        const val PROFILE_ID_KEY = "PROFILE_ID_KEY"
+        const val PROFILE_USER_ID_KEY = "PROFILE_ID_KEY"
+        const val PROFILE_MY_USER_MARK = "PROFILE_MY_USER_MARK"
         private const val NUMBER_PHOTOS_ON_PAGE = 25
         private const val LIKED_PHOTOS_MARKER_START = "users/"
         private const val LIKED_PHOTOS_MARKER_END = "/likes"

@@ -12,6 +12,7 @@ import com.example.unsplash.Network.UnsplashApi
 import com.example.unsplash.dataBase.adapters.DatabaseCollectionAdapter
 import com.example.unsplash.dataBase.dataBaseEssences.CollectionDB
 import com.example.unsplash.dataBase.dataBaseEssences.remoteKeys.RemoteKey
+import com.example.unsplash.utils.EmptyListException
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -72,7 +73,6 @@ class CollectionRemoteMediator(
 
             val collectionList = response.body()
             Log.d("UnsplashLoggingResponse", "collectionList pageNumber  ${pageNumber}")
-
             Log.d(
                 "UnsplashLoggingResponse",
                 "collectionList response.headers()  ${response.headers()}"
@@ -98,8 +98,12 @@ class CollectionRemoteMediator(
                 val adapter = DatabaseCollectionAdapter()
                 collectionList?.map { adapter.fromCollectionToDBCollection(it, marker) }
             }
+            /** Если на 1 странице пусто, значит выдаем кастомную ошибку - чтоб обработать пустой список*/
+            if (loadKey == null && collectionList.isNullOrEmpty()) throw EmptyListException()
 
             return MediatorResult.Success(endOfPaginationReached = collectionList.isNullOrEmpty())
+        } catch (e: EmptyListException) {
+            return MediatorResult.Error(e)
         } catch (e: IOException) {
             return MediatorResult.Error(e)
         } catch (e: HttpException) {

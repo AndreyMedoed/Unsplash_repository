@@ -12,7 +12,7 @@ interface ProfileDao {
     suspend fun insertProfile(profile: ProfileDB)
 
     @Query("SELECT * FROM ${ProfileContract.TABLE_NAME} WHERE ${ProfileContract.Columns.ID} =:id")
-    suspend fun getProfileById(id: String): ProfileDB?
+    suspend fun getProfileById(id: String?): ProfileDB?
 
     @Query("DELETE FROM ${ProfileContract.TABLE_NAME}")
     fun clearAll()

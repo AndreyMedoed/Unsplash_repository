@@ -12,7 +12,7 @@ interface UserDao {
 
 
     @Query("SELECT * FROM ${UserContract.TABLE_NAME} WHERE ${UserContract.Columns.ID} =:id")
-    suspend fun getUserById(id: String): UserDB?
+    suspend fun getUserById(id: String?): UserDB?
 
     @Query("DELETE FROM ${UserContract.TABLE_NAME}")
     fun clearAll()

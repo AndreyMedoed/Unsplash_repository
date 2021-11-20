@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tabs_graph"
-    app:startDestination="@id/my_likes">
+    app:startDestination="@id/my_collections">
     <include app:graph="@navigation/my_photos" />
     <include app:graph="@navigation/my_collections" />
     <include app:graph="@navigation/my_likes" />

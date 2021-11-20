@@ -20,6 +20,15 @@
             tools:listitem="@layout/item_photo_list" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <TextView
+        android:id="@+id/alert_textView_Id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:visibility="visible"
+        android:gravity="center"
+        tools:text="Совпадений не найдено" />
+
     <ProgressBar
         android:id="@+id/progress_Bar_Id"
         android:layout_width="wrap_content"

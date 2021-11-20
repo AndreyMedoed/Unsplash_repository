@@ -39,7 +39,7 @@ class DatabaseProfileAdapter {
 
     }
 
-    suspend fun fromDBProfileToProfile(profileDB_id: String): Profile? {
+    suspend fun fromDBProfileToProfile(profileDB_id: String?): Profile? {
         val profileDB = profileDao.getProfileById(profileDB_id)
         return profileDB?.let {
             Profile(

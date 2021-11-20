@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import com.example.unsplash.Network.UnsplashApi
 import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.data.essences.photo.Photo
+import com.example.unsplash.utils.EmptyListException
 import retrofit2.HttpException
 
 /** Этот источник используется тольуо для "Поиска" фотографий по ключевым словам. */
@@ -25,10 +26,14 @@ class PhotoPagingSource(
                 unsplashApi.searchPhotos(query, pageNumber.toString(), pageSize.toString())
 
             val photos = response.body()?.results
+            /** Если на 1 странице пусто, значит выдаем кастомную ошибку - чтоб обработать пустой список*/
+            if (pageNumber == INITIAL_PAGE_NUMBER && photos.isNullOrEmpty()) throw EmptyListException()
+
             val nextPageNumber = if (photos?.isEmpty()!!) null else pageNumber + 1
             val prevPageNumber = if (pageNumber > 1) pageNumber - 1 else null
             return LoadResult.Page(photos, prevPageNumber, nextPageNumber)
-
+        } catch (e: EmptyListException) {
+            return LoadResult.Error(e)
         } catch (e: HttpException) {
             return LoadResult.Error(e)
         } catch (e: Exception) {

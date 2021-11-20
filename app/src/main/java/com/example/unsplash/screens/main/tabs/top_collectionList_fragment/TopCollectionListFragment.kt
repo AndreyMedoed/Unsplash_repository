@@ -3,6 +3,7 @@ package com.example.unsplash.screens.main.tabs.top_collectionList_fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,6 +18,8 @@ import com.example.unsplash.dataBase.adapters.DatabaseCollectionAdapter
 import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.data.essences.collection.Collection
 import com.example.unsplash.databinding.TopCollectionListLayoutBinding
+import com.example.unsplash.utils.EmptyListException
+import com.example.unsplash.utils.isInternetAvailable
 import com.skillbox.github.utils.autoCleared
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
@@ -70,9 +73,25 @@ class TopCollectionListFragment : Fragment(R.layout.top_collection_list_layout) 
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         collectionAdapter.addLoadStateListener { state: CombinedLoadStates ->
-            with(binding) {
-                recyclerViewId.isVisible = state.refresh != LoadState.Loading
-                progressBarId.isVisible = state.refresh == LoadState.Loading
+            // Only show the list if refresh succeeds.
+            binding.recyclerViewId.isVisible = state.source.refresh is LoadState.NotLoading
+            // Show loading spinner during initial load or refresh.
+            binding.progressBarId.isVisible = state.source.refresh is LoadState.Loading
+            // Show the retry state if initial load or refresh fails.
+            binding.alertTextViewId.isVisible = state.source.refresh is LoadState.Error
+            if (binding.alertTextViewId.isVisible) {
+                Log.d("UnsplashLoggingPagingEx", "LoadState is Error")
+                when ((state.source.refresh as LoadState.Error).error) {
+                    is EmptyListException -> showAlertText(getString(R.string.alert_text_view_empty_list))
+                    else -> showAlertText(getString(R.string.alert_text_view_error))
+                }
+            }
+            if (!isInternetAvailable(requireContext())) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.toast_no_internet_show_database),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -105,6 +124,10 @@ class TopCollectionListFragment : Fragment(R.layout.top_collection_list_layout) 
                 collection
             )
         findNavController().navigate(action)
+    }
+
+    private fun showAlertText(text: String) {
+        binding.alertTextViewId.text = text
     }
 
 

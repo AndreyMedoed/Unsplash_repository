@@ -63,6 +63,9 @@
     <string name="navigation_photos_photoDetail">Фото</string>
     <string name="navigation_photos_search">Поиск</string>
     <string name="navigation_profile">Профиль</string>
+    <string name="alert_text_view_empty_list">Совпадений не найдено.</string>
+    <string name="alert_text_view_error">Ошибка. Проверьте интернет соединение.</string>
+    <string name="toast_no_internet_show_database">Нет сети. Показаны результаты из базы данных</string>
     <plurals name="item_collection_photo_number">
         <item quantity="one">%1$s фотография</item>
         <item quantity="few">%1$s фотографии</item>

@@ -63,6 +63,9 @@
     <string name="navigation_photos_photoDetail">Photo</string>
     <string name="navigation_photos_search">Search</string>
     <string name="navigation_profile">Profile</string>
+    <string name="alert_text_view_empty_list">No matches found.</string>
+    <string name="alert_text_view_error">Error. Check your internet connection.</string>
+    <string name="toast_no_internet_show_database">No network. Results from the database are shown.</string>
     <plurals name="item_collection_photo_number">
         <item quantity="one">%1$s photo</item>
         <item quantity="other">%1$s photos</item>

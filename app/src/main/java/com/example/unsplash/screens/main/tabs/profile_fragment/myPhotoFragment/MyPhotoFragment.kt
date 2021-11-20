@@ -19,6 +19,7 @@ import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.databinding.PhotoListFragmentLayoutBinding
 import com.example.unsplash.screens.splash.fragmens.profile_fragment.myPhotoFragment.MyPhotoViewModel
+import com.example.unsplash.utils.EmptyListException
 import com.skillbox.github.utils.autoCleared
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
@@ -84,9 +85,17 @@ class MyPhotoFragment : Fragment(R.layout.photo_list_fragment_layout) {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         myPhotoAdapter.addLoadStateListener { state: CombinedLoadStates ->
-            with(binding) {
-                recyclerViewId.isVisible = state.refresh != LoadState.Loading
-                progressBarId.isVisible = state.refresh == LoadState.Loading
+            // Only show the list if refresh succeeds.
+            binding.recyclerViewId.isVisible = state.source.refresh is LoadState.NotLoading
+            // Show loading spinner during initial load or refresh.
+            binding.progressBarId.isVisible = state.source.refresh is LoadState.Loading
+            // Show the retry state if initial load or refresh fails.
+            binding.alertTextViewId.isVisible = state.source.refresh is LoadState.Error
+            if (binding.alertTextViewId.isVisible) {
+                when ((state.source.refresh as LoadState.Error).error) {
+                    is EmptyListException -> showAlertText(getString(R.string.alert_text_view_empty_list))
+                    else -> showAlertText(getString(R.string.alert_text_view_error))
+                }
             }
         }
     }
@@ -116,6 +125,10 @@ class MyPhotoFragment : Fragment(R.layout.photo_list_fragment_layout) {
 //            myPhotoAdapter.refresh()
 //            binding.swipeRefreshLayoutId.isRefreshing = false
 //        }
+    }
+
+    private fun showAlertText(text: String) {
+        binding.alertTextViewId.text = text
     }
 
 
