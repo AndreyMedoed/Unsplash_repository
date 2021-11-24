@@ -1,14 +1,16 @@
 package com.example.unsplash.screens.splash.fragmens.profile_fragment.myLikesFragment
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import com.example.unsplash.screens.main.tabs.profile_fragment.myLikesFragment.MyLikesRepository
 import kotlinx.coroutines.launch
 
-class MyLikesViewModel : ViewModel() {
+class MyLikesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = MyLikesRepository()
+    private val repository = MyLikesRepository(application)
 
     fun setLike(photoId: String) {
         viewModelScope.launch {

@@ -1,5 +1,6 @@
 package com.example.unsplash.paging
 
+import android.content.Context
 import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -12,6 +13,7 @@ import com.example.unsplash.Network.UnsplashApi
 import com.example.unsplash.dataBase.adapters.DatabasePhotoAdapter
 import com.example.unsplash.dataBase.dataBaseEssences.PhotoDB
 import com.example.unsplash.dataBase.dataBaseEssences.remoteKeys.RemoteKey
+import com.example.unsplash.screens.main.tabs.profile_fragment.myPhotoFragment.MyPhotoFragment
 import com.example.unsplash.utils.EmptyListException
 import retrofit2.HttpException
 import java.io.IOException
@@ -21,14 +23,30 @@ class PhotoRemoteMediator(
     private val db: Database,
     private val unsplashApi: UnsplashApi,
     private val marker: String,
-    private val pageSize: Int
+    private val pageSize: Int,
+    private val context: Context
 ) : RemoteMediator<Int, PhotoDB>() {
     private val remoteKeyDao = db.instance.remoteKeyDao()
+
+    private val sharedPreferences by lazy {
+        context.getSharedPreferences(
+            SHARED_PREFERENCE_NAME_PROFILE,
+            Context.MODE_PRIVATE
+        )
+    }
 
     override suspend fun initialize(): InitializeAction {
         // Require that remote REFRESH is launched on initial load and succeeds before launching
         // remote PREPEND / APPEND.
-        return InitializeAction.SKIP_INITIAL_REFRESH
+        val lastRefreshTime = sharedPreferences.getLong(LAST_REFRESH_TIME, 0)
+        return if (lastRefreshTime == 0L || System.currentTimeMillis() - lastRefreshTime > STANDARD_TIME_TO_REFRESH) {
+            sharedPreferences.edit().putLong(LAST_REFRESH_TIME, System.currentTimeMillis()).apply()
+            Log.d("UnsplashRefreshTime", "LAUNCH_INITIAL_REFRESH lastRefreshTime is $lastRefreshTime")
+            InitializeAction.LAUNCH_INITIAL_REFRESH
+        } else{
+            Log.d("UnsplashRefreshTime", "SKIP_INITIAL_REFRESH")
+            InitializeAction.SKIP_INITIAL_REFRESH
+        }
     }
 
     override suspend fun load(
@@ -103,5 +121,11 @@ class PhotoRemoteMediator(
         } catch (e: HttpException) {
             return MediatorResult.Error(e)
         }
+    }
+
+    companion object {
+        private const val SHARED_PREFERENCE_NAME_PROFILE = "SHARED_PREFERENCE_NAME_PROFILE"
+        private const val LAST_REFRESH_TIME = "LAST_REFRESH_TIME"
+        private const val STANDARD_TIME_TO_REFRESH = 3600000L
     }
 }

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f1fa00dc5f1d3d6dfefa4b20da5fac66",
+    "identityHash": "9c5d875cbf78921356e027c7ddf41e53",
     "entities": [
       {
         "tableName": "collection",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT, `description` TEXT, `total_photos` INTEGER, `private` INTEGER, `links` INTEGER, `user` TEXT, `cover_photo` INTEGER, `mark` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`links`) REFERENCES `collection_links`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`user`) REFERENCES `user`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`cover_photo`) REFERENCES `photo`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT, `description` TEXT, `total_photos` INTEGER, `links` INTEGER, `user` TEXT, `cover_photo` INTEGER, `mark` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`links`) REFERENCES `collection_links`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`user`) REFERENCES `user`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`cover_photo`) REFERENCES `photo`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -29,12 +29,6 @@
           {
             "fieldPath": "total_photos",
             "columnName": "total_photos",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "private",
-            "columnName": "private",
             "affinity": "INTEGER",
             "notNull": false
           },
@@ -754,7 +748,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f1fa00dc5f1d3d6dfefa4b20da5fac66')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9c5d875cbf78921356e027c7ddf41e53')"
     ]
   }
 }

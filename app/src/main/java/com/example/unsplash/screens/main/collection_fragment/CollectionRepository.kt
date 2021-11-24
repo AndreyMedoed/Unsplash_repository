@@ -1,5 +1,6 @@
 package com.example.unsplash.screens.main.collection_fragment
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -8,7 +9,7 @@ import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.paging.PhotoRemoteMediator
 import com.example.unsplash.Network.NetworkConfig
 
-class CollectionRepository {
+class CollectionRepository(private val context: Context) {
     private val photoDao = Database.instance.photoDao()
 
     suspend fun getCollectionPhotos(collectionId: String): List<Photo>? =
@@ -24,7 +25,7 @@ class CollectionRepository {
     @ExperimentalPagingApi
     fun postsOfPhotos(marker: String, pageSize: Int) = Pager(
         config = PagingConfig(pageSize),
-        remoteMediator = PhotoRemoteMediator(Database, NetworkConfig.unsplashApi, marker, pageSize)
+        remoteMediator = PhotoRemoteMediator(Database, NetworkConfig.unsplashApi, marker, pageSize, context)
     ) {
         photoDao.postsByTopPhotos(marker)
     }.flow

@@ -1,16 +1,14 @@
 package com.example.unsplash.screens.main.tabs.top_photo_list_fragment
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
 import androidx.paging.*
 import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.screens.main.tabs.top_photo_list_fragment.TopPhotoListRepository
 import kotlinx.coroutines.launch
 
-class TopPhotoListFragmentViewModel : ViewModel() {
-    private val repository = TopPhotoListRepository()
+class TopPhotoListFragmentViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository = TopPhotoListRepository(application)
 
 
     private val listMutableLiveData = MutableLiveData<List<PhotoAndCollection>?>()

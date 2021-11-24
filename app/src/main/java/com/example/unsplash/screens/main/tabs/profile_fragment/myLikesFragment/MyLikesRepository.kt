@@ -1,5 +1,6 @@
 package com.example.unsplash.screens.main.tabs.profile_fragment.myLikesFragment
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -7,7 +8,7 @@ import com.example.unsplash.dataBase.Database
 import com.example.unsplash.paging.PhotoRemoteMediator
 import com.example.unsplash.Network.NetworkConfig
 
-class MyLikesRepository {
+class MyLikesRepository(private val context: Context) {
     private val photoDao = Database.instance.photoDao()
 
     suspend fun setLike(photoId: String) {
@@ -21,7 +22,7 @@ class MyLikesRepository {
     @ExperimentalPagingApi
     fun postsOfPhotos(marker: String, pageSize: Int) = Pager(
         config = PagingConfig(pageSize),
-        remoteMediator = PhotoRemoteMediator(Database, NetworkConfig.unsplashApi, marker, pageSize)
+        remoteMediator = PhotoRemoteMediator(Database, NetworkConfig.unsplashApi, marker, pageSize,context)
     ) {
         photoDao.postsByTopPhotos(marker)
     }.flow

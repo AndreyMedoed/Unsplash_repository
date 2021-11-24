@@ -1,5 +1,6 @@
 package com.example.unsplash.screens.main.tabs.top_collectionList_fragment
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -8,7 +9,7 @@ import com.example.unsplash.data.essences.photo.Photo
 import com.example.unsplash.paging.CollectionRemoteMediator
 import com.example.unsplash.Network.NetworkConfig
 
-class TopCollectionListRepository {
+class TopCollectionListRepository(private val context: Context) {
     private val collectionDao = Database.instance.collectionDao()
 
     suspend fun setLike(photoId: String) {
@@ -30,7 +31,7 @@ class TopCollectionListRepository {
             Database,
             NetworkConfig.unsplashApi,
             marker,
-            pageSize
+            pageSize,context
         )
     ) {
         collectionDao.postsByTopCollections(marker)

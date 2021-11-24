@@ -1,17 +1,15 @@
 package com.example.unsplash.screens.main.collection_fragment
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
 import androidx.paging.ExperimentalPagingApi
 import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.screens.main.collection_fragment.CollectionRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CollectionViewModel : ViewModel() {
-    private val repository = CollectionRepository()
+class CollectionViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository = CollectionRepository(application)
 
     private val listMutableLiveData = MutableLiveData<List<PhotoAndCollection>?>()
 
