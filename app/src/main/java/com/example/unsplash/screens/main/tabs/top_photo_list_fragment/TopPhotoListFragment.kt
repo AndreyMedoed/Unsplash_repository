@@ -20,7 +20,12 @@ import com.example.unsplash.adapters.ListLoaderStateAdapter
 import com.example.unsplash.adapters.PagingPhotoAndCollectionAdapter
 import com.example.unsplash.dataBase.adapters.DatabasePhotoAdapter
 import com.example.unsplash.data.essences.PhotoAndCollection
+import com.example.unsplash.data.essences.photo.Downloads
 import com.example.unsplash.data.essences.photo.Photo
+import com.example.unsplash.data.essences.photo.Statistics
+import com.example.unsplash.dataBase.Database
+import com.example.unsplash.dataBase.adapters.DatabasePhotoUrlAdapter
+import com.example.unsplash.dataBase.adapters.DatabaseUserAdapter
 import com.example.unsplash.databinding.TopPhotoListLayoutBinding
 import com.example.unsplash.utils.EmptyListException
 import com.example.unsplash.utils.ItemOffsetDecoration
@@ -54,7 +59,8 @@ class TopPhotoListFragment : Fragment(R.layout.top_photo_list_layout) {
     @ExperimentalPagingApi
     private fun observe() {
         Log.d("UnsplashLoggingPaging", "observe")
-        val databaseAdapter = DatabasePhotoAdapter()
+        val databasePhotoUrlAdapter = DatabasePhotoUrlAdapter()
+        val databaseUserAdapter = DatabaseUserAdapter()
 
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             viewModel.postsOfPhotos(
@@ -65,7 +71,19 @@ class TopPhotoListFragment : Fragment(R.layout.top_photo_list_layout) {
                 /** Каждый экземпляр, который получаем из базы данных, нам нужно превратить в
                  * экземпляр обычного класса*/
                 pagingData.map { photoDB ->
-                    databaseAdapter.fromDBPhotoToPhoto(photoDB.id) as PhotoAndCollection
+                    Photo(
+                        id = photoDB.unsplashId,
+                        description = photoDB.description,
+                        urls = photoDB.photo_urls_id?.let {
+                            databasePhotoUrlAdapter.fromDBPhotoUrlToPhotoUrl(it)
+                        },
+                        likes = photoDB.likes,
+                        liked_by_user = photoDB.liked_by_user,
+                        user = photoDB.user_id?.let {
+                            databaseUserAdapter.fromDBUserToUser(it)
+                        },
+                        statistics = Statistics(Downloads(photoDB.total_downloads))
+                    ) as PhotoAndCollection
                 }
             }.collectLatest { pagingData ->
                 Log.d("UnsplashLoggingPaging", "Передача данных адаптеру ${pagingData}")

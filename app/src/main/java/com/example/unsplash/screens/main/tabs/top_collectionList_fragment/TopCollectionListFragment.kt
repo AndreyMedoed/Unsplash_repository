@@ -17,6 +17,10 @@ import com.example.unsplash.adapters.PagingPhotoAndCollectionAdapter
 import com.example.unsplash.dataBase.adapters.DatabaseCollectionAdapter
 import com.example.unsplash.data.essences.PhotoAndCollection
 import com.example.unsplash.data.essences.collection.Collection
+import com.example.unsplash.dataBase.Database
+import com.example.unsplash.dataBase.adapters.DatabaseCollectionLinksAdapter
+import com.example.unsplash.dataBase.adapters.DatabasePhotoAdapter
+import com.example.unsplash.dataBase.adapters.DatabaseUserAdapter
 import com.example.unsplash.databinding.TopCollectionListLayoutBinding
 import com.example.unsplash.utils.EmptyListException
 import com.example.unsplash.utils.isInternetAvailable
@@ -42,7 +46,9 @@ class TopCollectionListFragment : Fragment(R.layout.top_collection_list_layout) 
 
     @ExperimentalPagingApi
     private fun observeContent() {
-        val databaseCollectionAdapter = DatabaseCollectionAdapter()
+        val databaseCollectionLinksAdapter = DatabaseCollectionLinksAdapter()
+        val databasePhotoAdapter = DatabasePhotoAdapter()
+        val databaseUserAdapter = DatabaseUserAdapter()
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.postsOfCollections(
                 /** Передаем урл в качестве маркера*/
@@ -52,7 +58,22 @@ class TopCollectionListFragment : Fragment(R.layout.top_collection_list_layout) 
                 /** Каждый экземпляр, который получаем из базы данных, нам нужно превратить в
                  * экземпляр обычного класса*/
                 pagingData.map { collectionDB ->
-                    databaseCollectionAdapter.fromDBCollectionToCollection(collectionDB.id) as PhotoAndCollection
+                    Collection(
+                        id = collectionDB.id,
+                        title = collectionDB.title,
+                        description = collectionDB.description,
+                        total_photos = collectionDB.total_photos,
+                        private = collectionDB.private,
+                        links = collectionDB.links_id?.let {
+                            databaseCollectionLinksAdapter.fromDBCollectionLinksToCollectionLinks(it)
+                        },
+                        user = collectionDB.user_id?.let {
+                            databaseUserAdapter.fromDBUserToUser(it)
+                        },
+                        cover_photo = collectionDB.cover_photo_id?.let {
+                            databasePhotoAdapter.fromDBPhotoToPhoto(it)
+                        }
+                    ) as PhotoAndCollection
                 }
             }.collectLatest { pagingData ->
                 Log.d("UnsplashLoggingPaging", "Передача данных адаптеру ${pagingData}")
